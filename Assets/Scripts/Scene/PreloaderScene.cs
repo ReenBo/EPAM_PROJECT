@@ -6,7 +6,7 @@ using ET.Core.LevelInfo;
 using ET.UI.LoadingView;
 using ET.Core.UIRoot;
 using ET.UI.WindowTypes;
-using UnityEngine.UI;
+using ET;
 
 namespace ET.Scenes.Preloader
 {
@@ -63,9 +63,7 @@ namespace ET.Scenes.Preloader
                 {
                     yield return _loading.allowSceneActivation = true;
                 }
-                yield return null;
             }
-            //yield return _loading;
 
             _loading = SceneManager.LoadSceneAsync(scene.ToString(), LoadSceneMode.Additive);
             yield return _loading;
@@ -82,6 +80,8 @@ namespace ET.Scenes.Preloader
             {
                 GameManager.Instance.GameSessionStatus(true);
             }
+
+            yield break;
         }
     }
 }

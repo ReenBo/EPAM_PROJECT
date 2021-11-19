@@ -77,14 +77,14 @@ namespace ET.Core.UIRoot
                 onOpenWindow += OpenWindow;
                 onCloseWindow += CloseWindow;
                 //GameManager.Instance.PlayerController.onPlayerDied += CloseWindow;
-                _playerController.onPlayerDied += CloseWindow;
+                _playerController.onPlayerDied += OpenWindow;
             }
             else
             {
                 onOpenWindow -= OpenWindow;
                 onCloseWindow -= CloseWindow;
                 //GameManager.Instance.PlayerController.onPlayerDied += CloseWindow;
-                _playerController.onPlayerDied -= CloseWindow;
+                _playerController.onPlayerDied -= OpenWindow;
             }
         }
 

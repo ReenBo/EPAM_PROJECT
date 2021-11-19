@@ -119,8 +119,8 @@ namespace ET
 
             UIRoot.Instance.UpdateAfterLaunch(_playerController);
 
-            _enemyManager = Instantiate(_enemyManagerPrefab).GetComponent<EnemyManager>();
-            EnemyManager.GetPlayerPosition(_playerPosition);
+            //_enemyManager = Instantiate(_enemyManagerPrefab).GetComponent<EnemyManager>();
+            //EnemyManager.GetPlayerPosition(_playerPosition);
 
             _levelSystem = new LevelSystem();
 
