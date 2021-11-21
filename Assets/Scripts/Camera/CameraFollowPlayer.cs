@@ -13,11 +13,11 @@ namespace ET
         [Range(0, 10)]
         [SerializeField] private float _speed = 1;
 
-        //protected void Start() /// !!!!!!!!!!!!!!!!!!
-        //{
-        //    _playerTransform = GameObject.FindGameObjectWithTag("Player").transform; /// !!!!!!!!!!!!
-        //    _distance = transform.position - _playerTransform.position;
-        //}
+        protected void Start() /// !!!!!!!!!!!!!!!!!!
+        {
+            _playerTransform = GameObject.FindGameObjectWithTag("Player").transform; /// !!!!!!!!!!!!
+            _distance = transform.position - _playerTransform.position;
+        }
 
         protected void FixedUpdate()
         {

@@ -13,6 +13,7 @@ namespace ET.Player.InputSystem
     {
 
         private PlayerSkillsController _skillsController;
+        private SpecialToolsController _specialToolsController;
 
         private Dictionary<KeyCode, ICommand> _commands;
 
@@ -22,11 +23,13 @@ namespace ET.Player.InputSystem
         protected void Start()
         {
             _skillsController = GetComponent<PlayerSkillsController>();
+            _specialToolsController = GetComponent<SpecialToolsController>();
 
             _commands = new Dictionary<KeyCode, ICommand>()
             {
                 { KeyCode.Escape, UIRoot.Instance },
-                { KeyCode.Q, _skillsController.RecoverySkill }
+                { KeyCode.Q, _skillsController.RecoverySkill },
+                { KeyCode.Space, _specialToolsController }
             };
         }
 

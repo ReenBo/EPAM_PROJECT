@@ -69,7 +69,6 @@ namespace ET.Weapons
             _muzzleFlashes = _muzzleFlashesPrefab.GetComponent<ParticleSystem>();
         }
 
-        #region Metods
         private void CreateProjectile(GameObject bullet)
         {
             _bulletSpawn = Instantiate(bullet.transform, _shootPoint.position, 
@@ -130,6 +129,5 @@ namespace ET.Weapons
             _audioSource.clip = clip;
             _audioSource.Play();
         }
-        #endregion
     }
 }
