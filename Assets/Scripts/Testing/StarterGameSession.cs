@@ -18,8 +18,8 @@ namespace ET.Testing
         {
             if (Input.GetKey(KeyCode.P))
             {
-                GameManager.Instance.InitGame(_infoTestScene);
-                GameManager.Instance.GameSessionStatus(true);
+                //GameManager.Instance.InitGame(_infoTestScene);
+                //GameManager.Instance.GameSessionStatus(true);
             }
         }
     }

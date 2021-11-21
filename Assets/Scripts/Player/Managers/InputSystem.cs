@@ -1,5 +1,7 @@
+using ET.Core.UIRoot;
 using ET.Interface.IComand;
 using ET.Player.Skills;
+using ET.UI.WindowTypes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,11 +11,13 @@ namespace ET.Player.InputSystem
 {
     public class InputSystem : MonoBehaviour
     {
-        private event Action<ICommand> _onRecoverySkill;
 
         private PlayerSkillsController _skillsController;
 
         private Dictionary<KeyCode, ICommand> _commands;
+
+        //public event Action<WindowType> onOpenWindow;
+        //public event Action<WindowType> onCloseWindow;
 
         protected void Start()
         {
@@ -21,6 +25,7 @@ namespace ET.Player.InputSystem
 
             _commands = new Dictionary<KeyCode, ICommand>()
             {
+                { KeyCode.Escape, UIRoot.Instance },
                 { KeyCode.Q, _skillsController.RecoverySkill }
             };
         }

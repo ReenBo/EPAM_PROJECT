@@ -6,7 +6,6 @@ using ET.Core.LevelInfo;
 using ET.UI.LoadingView;
 using ET.Core.UIRoot;
 using ET.UI.WindowTypes;
-using ET;
 
 namespace ET.Scenes.Preloader
 {
@@ -23,47 +22,53 @@ namespace ET.Scenes.Preloader
 
         protected void Start()
         {
-            SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString(), LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString());
         }
 
-        private static Action onLoaderCallback;
+        //private static Action onLoaderCallback;
 
         public void Load(SceneIndex scene)
         {
-            onLoaderCallback = () =>
-            {
-                StartCoroutine(AsyncLoading(scene));
-            };
-
-            LoaderCallback();
+            StartCoroutine(AsyncLoading(scene));
         }
 
-        private void LoaderCallback()
-        {
-            if (onLoaderCallback != null)
-            {
-                onLoaderCallback();
-                onLoaderCallback = null;
-            }
-        }
+        //public void Load(SceneIndex scene)
+        //{
+        //    onLoaderCallback = () =>
+        //    {
+        //        StartCoroutine(AsyncLoading(scene));
+        //    };
+
+        //    LoaderCallback();
+        //}
+
+        //private void LoaderCallback()
+        //{
+        //    if (onLoaderCallback != null)
+        //    {
+        //        onLoaderCallback();
+        //        onLoaderCallback = null;
+        //    }
+        //}
 
         private IEnumerator AsyncLoading(SceneIndex scene)
         {
             UIRoot.Instance.OpenWindow(WindowType.LOADING_SCREEN);
 
-            _loading = SceneManager.LoadSceneAsync(SceneName.GameSession);
+            _loading = SceneManager.LoadSceneAsync(SceneIndex._GameSession.ToString());
+            yield return _loading;
 
-            _loading.allowSceneActivation = false;
+            //_loading.allowSceneActivation = false;
 
-            while (!_loading.isDone)
-            {
-                _loadingLineView.LoadingLine.fillAmount += Mathf.Clamp01(1e-3f);
+            //while (!_loading.isDone)
+            //{
+            //    _loadingLineView.LoadingLine.fillAmount += Mathf.Clamp01(1e-3f);
 
-                if (_loading.progress >= 0.9f)
-                {
-                    yield return _loading.allowSceneActivation = true;
-                }
-            }
+            //    if (_loading.progress >= 0.9f)
+            //    {
+            //        yield return _loading.allowSceneActivation = true;
+            //    }
+            //}
 
             _loading = SceneManager.LoadSceneAsync(scene.ToString(), LoadSceneMode.Additive);
             yield return _loading;

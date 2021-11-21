@@ -1,5 +1,7 @@
+using ET.Interface.IComand;
 using ET.Interface.UI;
 using ET.Player;
+using ET.Player.InputSystem;
 using ET.UI.HUD;
 using ET.UI.LoadingView;
 using ET.UI.Popups;
@@ -12,7 +14,7 @@ using UnityEngine;
 
 namespace ET.Core.UIRoot
 {
-    public class UIRoot : MonoBehaviour
+    public class UIRoot : MonoBehaviour, ICommand
     {
         private static UIRoot _instance = null;
 
@@ -30,13 +32,11 @@ namespace ET.Core.UIRoot
         }
 
         private PlayerController _playerController = null;
+        //private InputSystem _inputSystem = null;
 
         [Header("References to the UI Components")]
         [SerializeField] private Popup _popup;
         [SerializeField] private HUD _hUD;
-
-        public event Action<WindowType> onOpenWindow;
-        public event Action<WindowType> onCloseWindow;
 
         private bool _isVisible = false;
 
@@ -50,42 +50,10 @@ namespace ET.Core.UIRoot
             DontDestroyOnLoad(gameObject);
         }
 
-        protected void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                if (!_isVisible) 
-                {
-                    onOpenWindow.Invoke(WindowType.PAUSE_MENU);
-                }
-                else
-                {
-                    onCloseWindow.Invoke(WindowType.PAUSE_MENU);
-                }
-            }
-        }
-
         public void UpdateAfterLaunch(PlayerController playerController)
         {
             _playerController = playerController;
-        }
-
-        public void ReceiveStatusOfSubscribersHandler(bool status)
-        {
-            if (status)
-            {
-                onOpenWindow += OpenWindow;
-                onCloseWindow += CloseWindow;
-                //GameManager.Instance.PlayerController.onPlayerDied += CloseWindow;
-                _playerController.onPlayerDied += OpenWindow;
-            }
-            else
-            {
-                onOpenWindow -= OpenWindow;
-                onCloseWindow -= CloseWindow;
-                //GameManager.Instance.PlayerController.onPlayerDied += CloseWindow;
-                _playerController.onPlayerDied -= OpenWindow;
-            }
+            //_inputSystem = playerController.GetComponent<InputSystem>();
         }
 
         public void OpenWindow(WindowType window)
@@ -117,5 +85,31 @@ namespace ET.Core.UIRoot
                 _isVisible = false;
             }
         }
+
+        public void ExecuteCommand()
+        {
+            if (!_isVisible)
+            {
+                OpenWindow(WindowType.PAUSE_MENU);
+            }
+            else
+            {
+                CloseWindow(WindowType.PAUSE_MENU);
+            }
+        }
+
+        //public void ReceiveStatusOfSubscribersHandler(bool status)
+        //{
+        //    if (status)
+        //    {
+        //        _inputSystem.onOpenWindow += OpenWindow;
+        //        _inputSystem.onCloseWindow += CloseWindow;
+        //    }
+        //    else
+        //    {
+        //        _inputSystem.onOpenWindow -= OpenWindow;
+        //        _inputSystem.onCloseWindow -= CloseWindow;
+        //    }
+        //}
     }
 }

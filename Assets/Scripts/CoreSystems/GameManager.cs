@@ -100,10 +100,10 @@ namespace ET
         {
             _gameHasStarted = status;
 
-            UIRoot.Instance.ReceiveStatusOfSubscribersHandler(status);
+            //UIRoot.Instance.ReceiveStatusOfSubscribersHandler(status);
             UIRoot.Instance.HUD.InvolveDisplay(status);
             UIRoot.Instance.HUD.ReceiveStatusOfSubscribersHandler(status);
-        }        
+        }
 
         public IEnumerator InitGame(InfoSceneObjects info)
         {
