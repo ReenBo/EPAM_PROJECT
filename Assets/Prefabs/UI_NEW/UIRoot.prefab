@@ -335,13 +335,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1935402026332461203, guid: 6c0e2f993be140a4d8edc0127502a0de, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 1935402026332461203, guid: 6c0e2f993be140a4d8edc0127502a0de, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 1935402026332461206, guid: 6c0e2f993be140a4d8edc0127502a0de, type: 3}
       propertyPath: m_Name
       value: HUD
       objectReference: {fileID: 0}
     - target: {fileID: 1935402026332461206, guid: 6c0e2f993be140a4d8edc0127502a0de, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1935402026585581276, guid: 6c0e2f993be140a4d8edc0127502a0de, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -408,6 +416,14 @@ PrefabInstance:
       propertyPath: _loadingView
       value: 
       objectReference: {fileID: 3386389358733098178}
+    - target: {fileID: 6279370579716377499, guid: 416708df09f581342bbd555230b3d0ce, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 6279370579716377499, guid: 416708df09f581342bbd555230b3d0ce, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 6279370579716377500, guid: 416708df09f581342bbd555230b3d0ce, type: 3}
       propertyPath: m_Name
       value: Popup

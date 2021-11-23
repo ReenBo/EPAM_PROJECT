@@ -14,18 +14,17 @@ namespace ET.Player
 
         private GameObject _flashCube = null;
 
-        private float _theta = 0;
+        //private float _theta = 0;
 
         public void ExecuteCommand()
         {
-            _flashCube = Instantiate(_prefabFlashCube, 
-                new Vector3(transform.position.x, 1, transform.position.z), Quaternion.identity);
+            _flashCube = Instantiate(_prefabFlashCube, _spawnTarget.position, Quaternion.identity);
 
             Rigidbody rigidbody = _flashCube.GetComponent<Rigidbody>();
 
-            rigidbody.AddForce(new Vector3(0, 1, 10f), ForceMode.Impulse);
+            Vector3 dir = _target.position - _spawnTarget.position;
 
-
+            rigidbody.AddForce(new Vector3(dir.x, dir.y * 2f, dir.z * 4f), ForceMode.Impulse);
 
             //float radians = Time.time * Mathf.PI;
             //Debug.Log(radians);

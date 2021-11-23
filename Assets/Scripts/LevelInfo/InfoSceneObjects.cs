@@ -1,6 +1,8 @@
+using ET.Device;
 using ET.Enemy;
 using ET.Enemy.AI;
 using ET.Scenes;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ET.Core.LevelInfo
@@ -19,11 +21,13 @@ namespace ET.Core.LevelInfo
         [Header("References to static level objects in the scene")]
         [SerializeField] private GameObject _ground;
         [SerializeField] private GameObject _lights;
+        [SerializeField] private DeviceActivationController _deviceActivations;
 
         public SceneIndex LevelIndex { get => _levelIndex; }
 
         public Transform PlayerSpawnTarget { get => _playerSpawnTarget; }
         public GameObject Ground { get => _ground; }
         public GameObject Lights { get => _lights; }
+        public DeviceActivationController DeviceActivations { get => _deviceActivations; }
     }
 }

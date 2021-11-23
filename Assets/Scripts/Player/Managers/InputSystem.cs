@@ -1,4 +1,6 @@
+using ET.Core.LevelInfo;
 using ET.Core.UIRoot;
+using ET.Device;
 using ET.Interface.IComand;
 using ET.Player.Skills;
 using ET.UI.WindowTypes;
@@ -14,6 +16,7 @@ namespace ET.Player.InputSystem
 
         private PlayerSkillsController _skillsController;
         private SpecialToolsController _specialToolsController;
+        private InfoSceneObjects _infoScene;
 
         private Dictionary<KeyCode, ICommand> _commands;
 
@@ -24,12 +27,14 @@ namespace ET.Player.InputSystem
         {
             _skillsController = GetComponent<PlayerSkillsController>();
             _specialToolsController = GetComponent<SpecialToolsController>();
+            _infoScene = GameObject.FindGameObjectWithTag("LevelInfo").GetComponent<InfoSceneObjects>();
 
             _commands = new Dictionary<KeyCode, ICommand>()
             {
                 { KeyCode.Escape, UIRoot.Instance },
                 { KeyCode.Q, _skillsController.RecoverySkill },
-                { KeyCode.Space, _specialToolsController }
+                { KeyCode.Space, _specialToolsController },
+                { KeyCode.F, _infoScene.DeviceActivations }
             };
         }
 
