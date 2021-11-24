@@ -16,6 +16,7 @@ namespace ET.Scenes
         _GameSession,
         _Level_1,
         _Level_2,
-        _Level_3
+        _Level_3,
+        _TESTING
     }
 }

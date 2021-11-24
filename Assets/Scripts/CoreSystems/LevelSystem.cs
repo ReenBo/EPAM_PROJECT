@@ -19,10 +19,8 @@ namespace ET.Core.LevelSystem
 
         public event Action<float, float, int, int> onExperiencePlayerChange;
 
-        #region Properties
         public int CurrentLevel { get => _currentLevel; set => _currentLevel = value; }
         public float CurrentExperience { get => _currentExperience; set => _currentExperience = value; }
-        #endregion
 
         public void CalculateExperiencePlayer(float experience)
         {

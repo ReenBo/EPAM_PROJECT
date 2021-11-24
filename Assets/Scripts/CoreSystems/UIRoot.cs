@@ -4,7 +4,7 @@ using ET.Player;
 using ET.Player.InputSystem;
 using ET.UI.HUD;
 using ET.UI.LoadingView;
-using ET.UI.Popups;
+using ET.UI;
 using ET.UI.SkillsView;
 using ET.UI.WindowTypes;
 using System;
@@ -31,16 +31,13 @@ namespace ET.Core.UIRoot
             }
         }
 
-        private PlayerController _playerController = null;
-        //private InputSystem _inputSystem = null;
-
         [Header("References to the UI Components")]
-        [SerializeField] private Popup _popup;
+        [SerializeField] private Popups _popups;
         [SerializeField] private HUD _hUD;
 
         private bool _isVisible = false;
 
-        public Popup Popup { get => _popup; }
+        public Popups Popup { get => _popups; }
         public HUD HUD { get => _hUD; }
 
         protected void Awake()
@@ -50,17 +47,11 @@ namespace ET.Core.UIRoot
             DontDestroyOnLoad(gameObject);
         }
 
-        public void UpdateAfterLaunch(PlayerController playerController)
-        {
-            _playerController = playerController;
-            //_inputSystem = playerController.GetComponent<InputSystem>();
-        }
-
         public void OpenWindow(WindowType window)
         {
             if (!_isVisible)
             {
-                _popup.UIObjects[window].Show();
+                _popups.UIObjects[window].Show();
                 _isVisible = true;
             }
         }
@@ -69,7 +60,7 @@ namespace ET.Core.UIRoot
         {
             if (_isVisible)
             {
-                _popup.UIObjects[window].Hide();
+                _popups.UIObjects[window].Hide();
                 _isVisible = false;
             }
         }
@@ -78,7 +69,7 @@ namespace ET.Core.UIRoot
         {
             if (_isVisible)
             {
-                foreach (var pair in _popup.UIObjects.Values)
+                foreach (var pair in _popups.UIObjects.Values)
                 {
                     pair.Hide();
                 }
@@ -98,18 +89,10 @@ namespace ET.Core.UIRoot
             }
         }
 
-        //public void ReceiveStatusOfSubscribersHandler(bool status)
-        //{
-        //    if (status)
-        //    {
-        //        _inputSystem.onOpenWindow += OpenWindow;
-        //        _inputSystem.onCloseWindow += CloseWindow;
-        //    }
-        //    else
-        //    {
-        //        _inputSystem.onOpenWindow -= OpenWindow;
-        //        _inputSystem.onCloseWindow -= CloseWindow;
-        //    }
-        //}
+        public void CheckingStatusGameSession(bool status)
+        {
+            HUD.InvolveDisplay(status);
+            HUD.ReceiveStatusOfSubscribersHandler(status);
+        }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace ET.Enemy
 {
@@ -18,12 +19,14 @@ namespace ET.Enemy
         [SerializeField] private float _amountHealth = 0;
         [SerializeField] private float _amountDamage = 0;
         [SerializeField] private int _amountExperience = 0;
+
         [SerializeField] private GameObject _ArmR;
         [SerializeField] private GameObject _ArmL;
+
         [SerializeField] private AudioClip _deadAudio;
         [SerializeField] private AudioClip _hitAudio;
 
-        public event Action<float> onExperiencePlayerChange;
+        [SerializeField] private ParticleSystem _bloodFX;
 
         private bool _isDeath = false;
         //private bool _isResurrection = false;
@@ -53,11 +56,16 @@ namespace ET.Enemy
 
                 if (AmountHealth > 1e-3)
                 {
+                    var posBlood = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(1f, 1.5f), 0f);
+
+                    _bloodFX.transform.localPosition = posBlood;
+                    _bloodFX.Play();
+
                     _audioSource.PlayOneShot(_hitAudio);
 
                     AmountHealth -= count;
 
-                    int num = UnityEngine.Random.Range(0, 10);
+                    int num = Random.Range(0, 10);
 
                     switch (num)
                     {
@@ -81,7 +89,7 @@ namespace ET.Enemy
 
         private void EnemyIsDying()
         {
-            GameManager.Instance.LevelSystem.CalculateExperiencePlayer(_amountExperience);
+            GameManager.Instance.LevelSystem.CalculateExperiencePlayer(_amountExperience); //!!!
 
             _audioSource.PlayOneShot(_deadAudio);
 

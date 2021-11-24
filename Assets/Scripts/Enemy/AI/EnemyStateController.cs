@@ -34,9 +34,7 @@ namespace ET.Enemy.AI
         private bool _canSeePlayer = false;
         #endregion
 
-        #region Properties
         public AI_ENEMY_STATE CurrentState { get => _currentState; set => _currentState = value; }
-        #endregion
 
         #region Hash Code Animations
         private int _idle = Animator.StringToHash(AnimationsTags.IDLE_ANIMATION);

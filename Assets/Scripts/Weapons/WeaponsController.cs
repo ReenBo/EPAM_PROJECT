@@ -119,7 +119,7 @@ namespace ET.Weapons
             if (_ammoCounter > 0)
             {
                 _ammoCounter -= 1;
-                onAmmoCountViemChange.Invoke(_numberRoundsInMagazine, _ammoCounter);
+                //onAmmoCountViemChange.Invoke(_numberRoundsInMagazine, _ammoCounter);
             }
             else _getAmmo = false;
         }

@@ -43,7 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a954118976ef9634cad9079f3b3686de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyManagerPrefab: {fileID: 0}
   _enemyManager: {fileID: 0}
   _playerSpawner: {fileID: 0}
   _sceneController: {fileID: 0}

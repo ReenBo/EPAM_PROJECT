@@ -16,7 +16,7 @@ namespace ET.Player.InputSystem
 
         private PlayerSkillsController _skillsController;
         private SpecialToolsController _specialToolsController;
-        private InfoSceneObjects _infoScene;
+        private InteractionWithItems _interactionWithItems;
 
         private Dictionary<KeyCode, ICommand> _commands;
 
@@ -27,14 +27,14 @@ namespace ET.Player.InputSystem
         {
             _skillsController = GetComponent<PlayerSkillsController>();
             _specialToolsController = GetComponent<SpecialToolsController>();
-            _infoScene = GameObject.FindGameObjectWithTag("LevelInfo").GetComponent<InfoSceneObjects>();
+            _interactionWithItems = GetComponent<InteractionWithItems>();
 
             _commands = new Dictionary<KeyCode, ICommand>()
             {
                 { KeyCode.Escape, UIRoot.Instance },
                 { KeyCode.Q, _skillsController.RecoverySkill },
                 { KeyCode.Space, _specialToolsController },
-                { KeyCode.F, _infoScene.DeviceActivations }
+                { KeyCode.F, _interactionWithItems }
             };
         }
 

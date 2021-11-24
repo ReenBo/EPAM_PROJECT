@@ -25,57 +25,39 @@ namespace ET.Scenes.Preloader
             SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString());
         }
 
-        //private static Action onLoaderCallback;
-
         public void Load(SceneIndex scene)
         {
             StartCoroutine(AsyncLoading(scene));
         }
 
-        //public void Load(SceneIndex scene)
-        //{
-        //    onLoaderCallback = () =>
-        //    {
-        //        StartCoroutine(AsyncLoading(scene));
-        //    };
-
-        //    LoaderCallback();
-        //}
-
-        //private void LoaderCallback()
-        //{
-        //    if (onLoaderCallback != null)
-        //    {
-        //        onLoaderCallback();
-        //        onLoaderCallback = null;
-        //    }
-        //}
 
         private IEnumerator AsyncLoading(SceneIndex scene)
         {
             UIRoot.Instance.OpenWindow(WindowType.LOADING_SCREEN);
 
             _loading = SceneManager.LoadSceneAsync(SceneIndex._GameSession.ToString());
-            yield return _loading;
 
-            //_loading.allowSceneActivation = false;
+            _loading.allowSceneActivation = false;
 
-            //while (!_loading.isDone)
-            //{
-            //    _loadingLineView.LoadingLine.fillAmount += Mathf.Clamp01(1e-3f);
+            while (!_loading.isDone)
+            {
+                _loadingLineView.LoadingLine.fillAmount += Mathf.Clamp01(1e-3f);
 
-            //    if (_loading.progress >= 0.9f)
-            //    {
-            //        yield return _loading.allowSceneActivation = true;
-            //    }
-            //}
+                if (_loading.progress >= 0.9f)
+                {
+                    yield return _loading.allowSceneActivation = true;
+                }
+            }
 
-            _loading = SceneManager.LoadSceneAsync(scene.ToString(), LoadSceneMode.Additive);
+            //_loading = SceneManager.LoadSceneAsync(scene.ToString(), LoadSceneMode.Additive);
+            _loading = SceneManager.LoadSceneAsync(SceneIndex._TESTING.ToString(), LoadSceneMode.Additive);
             yield return _loading;
 
 
             var levelInfo = GameObject.FindGameObjectWithTag(Tags.LEVEL_INFO);
             InfoSceneObjects infoSceneObjects = levelInfo.GetComponent<InfoSceneObjects>();
+
+            yield return null;
 
             yield return GameManager.Instance.InitGame(infoSceneObjects);
 

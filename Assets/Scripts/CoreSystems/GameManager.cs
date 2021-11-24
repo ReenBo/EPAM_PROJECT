@@ -41,9 +41,6 @@ namespace ET
 
         //private GameObject[] _allGameObjectsScene = null;
 
-        [Header("References to the GameObjects")]
-        [SerializeField] private GameObject _enemyManagerPrefab;
-
         [Header("References to the Components")]
         [SerializeField] private EnemyManager _enemyManager;
 
@@ -56,7 +53,6 @@ namespace ET
         private PlayerCombatController _playerCombatController;
         private WeaponsController _weaponsController;
         private RecoverySkill _recoverySkill;
-        private Transform _playerPosition;
 
         private LevelSystem _levelSystem;
         private CharacterStats _stats;
@@ -100,9 +96,7 @@ namespace ET
         {
             _gameHasStarted = status;
 
-            //UIRoot.Instance.ReceiveStatusOfSubscribersHandler(status);
-            UIRoot.Instance.HUD.InvolveDisplay(status);
-            UIRoot.Instance.HUD.ReceiveStatusOfSubscribersHandler(status);
+            UIRoot.Instance.CheckingStatusGameSession(status);
         }
 
         public IEnumerator InitGame(InfoSceneObjects info)
@@ -110,14 +104,15 @@ namespace ET
             _sceneController.UpdateAfterLaunch(info.LevelIndex);
 
             _playerController = _playerSpawner.CreatePlayerInSession(info.PlayerSpawnTarget);
-            _playerPosition = _playerController.PlayerPosition;
+
+            var _playerPosition = _playerController.PlayerPosition;
+            _camera.GetPlayerPosition(_playerPosition);
+
             _playerCombatController = _playerController.transform.GetComponent<PlayerCombatController>();
             _weaponsController = _playerController.transform.GetComponentInChildren<WeaponsController>();
             _recoverySkill = _playerController.transform.GetComponentInChildren<RecoverySkill>();
 
             _camera.GetPlayerPosition(_playerPosition);
-
-            UIRoot.Instance.UpdateAfterLaunch(_playerController);
 
             //_enemyManager = Instantiate(_enemyManagerPrefab).GetComponent<EnemyManager>();
             //EnemyManager.GetPlayerPosition(_playerPosition);

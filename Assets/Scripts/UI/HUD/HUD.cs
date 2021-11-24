@@ -1,3 +1,5 @@
+using ET.Interface.UI;
+using ET.Player;
 using ET.Player.UI.ExperienceView;
 using ET.Player.UI.StatsView;
 using ET.UI.SkillsView;

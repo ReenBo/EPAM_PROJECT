@@ -7,12 +7,10 @@ namespace ET.Enemy
 {
     public class EnemyAttacksController : MonoBehaviour
     {
-        #region Variables
         private PlayerController _playerController = null;
         private Animator _animator = null;
 
         private float _damageArm = 0f;
-        #endregion
 
         public float DamageArm { get => _damageArm; set => _damageArm = value; }
 
