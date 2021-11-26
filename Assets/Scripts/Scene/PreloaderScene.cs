@@ -65,7 +65,7 @@ namespace ET.Scenes.Preloader
 
             if (_loading.isDone)
             {
-                GameManager.Instance.GameSessionStatus(true);
+                GameManager.Instance.StartSession();
             }
 
             yield break;

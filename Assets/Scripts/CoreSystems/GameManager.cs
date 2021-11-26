@@ -16,10 +16,11 @@ using ET.Core.UIRoot;
 using ET.Core.LevelInfo;
 using ET.UI.WindowTypes;
 using ET.Player.Skills;
+using ET.UI.HUD;
 
 namespace ET
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : MonoBehaviour, HUD.IData
     {
         private static GameManager _instance = null;
 
@@ -60,6 +61,11 @@ namespace ET
         public SceneController SceneController { get => _sceneController; }
         public PlayerController PlayerController { get => _playerController; private set => _playerController = value; }
         public PlayerCombatController PlayerCombatController { get => _playerCombatController; }
+        public bool CalcSum(int index)
+        {
+            throw new NotImplementedException();
+        }
+
         public CharacterStats Stats { get => _stats; set => _stats = value; }
         public LevelSystem LevelSystem { get => _levelSystem; set => _levelSystem = value; }
         public EnemyManager EnemyManager { get => _enemyManager; }
@@ -159,5 +165,29 @@ namespace ET
         //    return gObject;
         //}
         #endregion
+
+        public async void StartSession()
+        {
+            var window = UIRoot.Instance.OpenWindow(WindowType.HUD, new HudDataProvider(PlayerController, PlayerCombatController));
+
+            
+            await window.WaitForClose();
+        }
+    }
+
+    public class HudDataProvider : HUD.IData
+    {
+        public PlayerController PlayerController { get; }
+        public PlayerCombatController PlayerCombatController { get; }
+        public bool CalcSum(int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public HudDataProvider(PlayerController player, PlayerCombatController combat)
+        {
+            PlayerController = player;
+            PlayerCombatController = combat;
+        }
     }
 }

@@ -1,5 +1,7 @@
+using System.Threading.Tasks;
 using ET.Interface.UI;
 using ET.Player;
+using ET.Player.Combat;
 using ET.Player.UI.ExperienceView;
 using ET.Player.UI.StatsView;
 using ET.UI.SkillsView;
@@ -8,8 +10,16 @@ using UnityEngine;
 
 namespace ET.UI.HUD
 {
-    public class HUD : MonoBehaviour
+    public class HUD : MonoBehaviour, IUIScreenable<HUD.IData>
     {
+        public interface IData
+        {
+            public PlayerController PlayerController { get; }
+            public PlayerCombatController PlayerCombatController { get; }
+
+            public bool CalcSum(int index);
+        }
+        
         [SerializeField] private PlayerStatsView _playerStatsView;
         [SerializeField] private PlayerExperienceView _playerExperienceView;
         [SerializeField] private PlayerSkillsView _playerSkillsView;
@@ -75,6 +85,31 @@ namespace ET.UI.HUD
 
                 GameManager.Instance.RecoverySkill.onHealthViewChange -= PlayerStatsView.SetHealthView;
             }
+        }
+
+        private IData _context;
+
+        private TaskCompletionSource<bool> _waitForClose;
+        
+        public void Show(IData context)
+        {
+            _waitForClose = new TaskCompletionSource<bool>();
+            _context = context;
+            
+            _context.PlayerController.onArmorViewChange += PlayerStatsView.SetArmorView;
+            _context.PlayerController.onHealthViewChange += PlayerStatsView.SetHealthView;
+        }
+
+        public void Hide()
+        {
+            _waitForClose.SetResult(true);
+            _context.PlayerController.onArmorViewChange -= PlayerStatsView.SetArmorView;
+            _context.PlayerController.onHealthViewChange -= PlayerStatsView.SetHealthView;
+        }
+
+        public Task WaitForClose()
+        {
+            return _waitForClose.Task;
         }
     }
 }

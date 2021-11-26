@@ -11,6 +11,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ET.Core.UIRoot
 {
@@ -31,13 +32,14 @@ namespace ET.Core.UIRoot
             }
         }
 
+        [FormerlySerializedAs("_popups")]
         [Header("References to the UI Components")]
-        [SerializeField] private Popups _popups;
+        [SerializeField] private PopupList popupList;
         [SerializeField] private HUD _hUD;
 
         private bool _isVisible = false;
 
-        public Popups Popup { get => _popups; }
+        public PopupList PopupList { get => popupList; }
         public HUD HUD { get => _hUD; }
 
         protected void Awake()
@@ -47,12 +49,22 @@ namespace ET.Core.UIRoot
             DontDestroyOnLoad(gameObject);
         }
 
-        public void OpenWindow(WindowType window)
+        public IUIScreenable OpenWindow<IContext>(WindowType windowType, IContext context)
         {
             if (!_isVisible)
             {
-                _popups.UIObjects[window].Show();
-                _isVisible = true;
+                var prefab = popupList.GetWindow(windowType);
+
+                var window = prefab.GetComponent<IUIScreenable<IContext>>();
+
+                if (window == null)
+                {
+                    Debug.LogError("asdsadsadsd");
+                    return null;
+                }
+                
+                window.Show(context);
+                return window;
             }
         }
 
@@ -60,7 +72,7 @@ namespace ET.Core.UIRoot
         {
             if (_isVisible)
             {
-                _popups.UIObjects[window].Hide();
+                popupList.UIObjects[window].Hide();
                 _isVisible = false;
             }
         }
@@ -69,7 +81,7 @@ namespace ET.Core.UIRoot
         {
             if (_isVisible)
             {
-                foreach (var pair in _popups.UIObjects.Values)
+                foreach (var pair in popupList.UIObjects.Values)
                 {
                     pair.Hide();
                 }
