@@ -1,4 +1,4 @@
-using ET.Interface.UI;
+using ET.Interface;
 using ET.Player;
 using ET.Player.UI.ExperienceView;
 using ET.Player.UI.StatsView;
@@ -6,28 +6,35 @@ using ET.UI.SkillsView;
 using ET.UI.Weapon;
 using UnityEngine;
 
-namespace ET.UI.HUD
+namespace ET.UI
 {
-    public class HUD : MonoBehaviour
+    public class HUD : MonoBehaviour, IHUD
     {
+        private IPlayer _player;
+
         [SerializeField] private PlayerStatsView _playerStatsView;
         [SerializeField] private PlayerExperienceView _playerExperienceView;
         [SerializeField] private PlayerSkillsView _playerSkillsView;
         [SerializeField] private WeaponView _weaponView;
 
-        //private List<Action> _listActions = new List<Action>()
-        //{
-        //    { GameManager.Instance.PlayerCombatController.onPlayerStatsViewChange },
-        //};
+        protected void Awake()
+        {
+            _player = GameManager.Instance.GetPlayer();
+        }
 
         public PlayerStatsView PlayerStatsView { get => _playerStatsView; set => _playerStatsView = value; }
         public PlayerExperienceView PlayerExperienceView { get => _playerExperienceView; set => _playerExperienceView = value; }
         public PlayerSkillsView PlayerSkillsView { get => _playerSkillsView; set => _playerSkillsView = value; }
         public WeaponView WeaponView { get => _weaponView; set => _weaponView = value; }
 
-        public void InvolveDisplay(bool isLaunched)
+        public void Show()
         {
-            gameObject.SetActive(isLaunched);
+            gameObject.SetActive(true);
+        }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);
         }
 
         public void ReceiveStatusOfSubscribersHandler(bool status)
@@ -40,7 +47,7 @@ namespace ET.UI.HUD
                 GameManager.Instance.PlayerController.onArmorViewChange += PlayerStatsView.SetArmorView;
                 GameManager.Instance.PlayerController.onHealthViewChange += PlayerStatsView.SetHealthView;
 
-                GameManager.Instance.LevelSystem.onExperiencePlayerChange += 
+                GameManager.Instance.levelSystem.onExperiencePlayerChange += 
                     PlayerExperienceView.SetExperience;
 
                 GameManager.Instance.WeaponsController.onAmmoCountViemChange +=
@@ -62,7 +69,7 @@ namespace ET.UI.HUD
                 GameManager.Instance.PlayerController.onArmorViewChange -= PlayerStatsView.SetArmorView;
                 GameManager.Instance.PlayerController.onHealthViewChange -= PlayerStatsView.SetHealthView;
 
-                GameManager.Instance.LevelSystem.onExperiencePlayerChange -=
+                GameManager.Instance.levelSystem.onExperiencePlayerChange -=
                     PlayerExperienceView.SetExperience;
 
                 GameManager.Instance.WeaponsController.onAmmoCountViemChange -=

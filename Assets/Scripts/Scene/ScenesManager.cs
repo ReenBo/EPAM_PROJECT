@@ -1,22 +1,28 @@
-using ET.Core.UIRoot;
-using ET.Scenes.Preloader;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using ET.Interface;
+using ET.Enums.Scenes;
 
-namespace ET.Scenes
+namespace ET.Core
 {
-    public class SceneController : MonoBehaviour
+    public class ScenesManager : IScenesManager
     {
+        private IPreloader _preloader = null;
+
         private GameObject _preLoaderGameObject = null;
-        private PreloaderScene _preloaderScene;
 
-        private SceneIndex _currentLevel;
+        private SceneIndex _currentLevel = 0;
 
-        protected void Start()
+        public ScenesManager(IPreloader preloader)
         {
-            _preLoaderGameObject = GameObject.FindGameObjectWithTag(Tags.PRELOADER);
-            _preloaderScene = _preLoaderGameObject.GetComponent<PreloaderScene>();
+            _preloader = preloader;
         }
+
+        //protected void Start()
+        //{
+        //    _preLoaderGameObject = GameObject.FindGameObjectWithTag(Tags.PRELOADER);
+        //    _preloaderScene = _preLoaderGameObject.GetComponent<PreloaderScene>();
+        //}
 
         public void UpdateAfterLaunch(SceneIndex index)
         {
@@ -26,12 +32,12 @@ namespace ET.Scenes
 
         public void StartGame()
         {
-            _preloaderScene.Load(SceneIndex._Level_1);
+            _preloader.UploadScene(SceneIndex._Level_1);
         }
 
         public void Restart()
         {
-            _preloaderScene.Load(_currentLevel);
+            _preloader.UploadScene(_currentLevel);
         }
 
         public void ReturnMainMenu()

@@ -92,12 +92,12 @@ GameObject:
   - component: {fileID: 3167670685471509765}
   - component: {fileID: 3167670685471509767}
   m_Layer: 5
-  m_Name: LoadingBackground
+  m_Name: LoadingScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3167670685471509764
 RectTransform:
   m_ObjectHideFlags: 0

@@ -4,18 +4,18 @@ using UnityEngine;
 using ET.Enemy;
 using ET.Player;
 using ET.Player.Spawner;
-using ET.Scenes;
 using ET.Core.Stats;
 using ET.Core.SaveSystem;
 using ET.Weapons;
-using ET.Core.LevelSystem;
 using System;
-using ET.Enemy.AI;
 using ET.Player.Combat;
-using ET.Core.UIRoot;
 using ET.Core.LevelInfo;
-using ET.UI.WindowTypes;
 using ET.Player.Skills;
+using ET.Interface;
+using ET.Core;
+using ET.Structures;
+using ET.UI;
+using ET.Enums.EComponents;
 
 namespace ET
 {
@@ -36,17 +36,21 @@ namespace ET
             }
         }
 
-        private object[] _controlSubsystems;
-        private bool _gameHasStarted = false;
+        public IPlayer player = null;
+        public IEnemy enemy = null;
+        public IResoursManager resoursManager = null;
+        public ILevelSystem levelSystem = null;
+        public IUIRoot uIRoot = null;
+        public IHUD hUD = null;
+        public IPopups popups = null;
 
-        //private GameObject[] _allGameObjectsScene = null;
-
+        #region OLD
         [Header("References to the Components")]
         [SerializeField] private EnemyManager _enemyManager;
 
         [SerializeField] private PlayerSpawner _playerSpawner;
 
-        [SerializeField] private SceneController _sceneController;
+        //[SerializeField] private ScenesManager _sceneController;
         [SerializeField] private CameraFollowPlayer _camera;
 
         private PlayerController _playerController;
@@ -57,16 +61,15 @@ namespace ET
         private LevelSystem _levelSystem;
         private CharacterStats _stats;
 
-        public SceneController SceneController { get => _sceneController; }
+        //public ScenesManager SceneController { get => _sceneController; }
         public PlayerController PlayerController { get => _playerController; private set => _playerController = value; }
         public PlayerCombatController PlayerCombatController { get => _playerCombatController; }
         public CharacterStats Stats { get => _stats; set => _stats = value; }
-        public LevelSystem LevelSystem { get => _levelSystem; set => _levelSystem = value; }
         public EnemyManager EnemyManager { get => _enemyManager; }
 
-        //public bool GameHasStarted { get => _gameHasStarted; }
         public WeaponsController WeaponsController { get => _weaponsController; }
         public RecoverySkill RecoverySkill { get => _recoverySkill; set => _recoverySkill = value; }
+        #endregion
 
         protected void Awake()
         {
@@ -79,29 +82,96 @@ namespace ET
             {
                 _instance = null;
             }
+
+            player = null;
+            enemy = null;
+            resoursManager = null;
+            levelSystem = null;
+            uIRoot = null;
         }
 
-        private void InitArrayWithSubsystems(bool value)
+        public IResoursManager GetResourseManager() // maybe static
         {
-            _controlSubsystems = new object[]
+            if (resoursManager is null)
             {
-                _camera.enabled = value,
-                _sceneController.enabled = value,
-                _enemyManager.enabled = value,
-                _playerSpawner.enabled = value
-            };
+                resoursManager = new ResoursesManager();
+            }
+
+            return resoursManager;
+        }
+
+        public IPlayer GetPlayer() // maybe static
+        {
+            if (resoursManager is null)
+            {
+                resoursManager = GetResourseManager();
+
+                player = resoursManager.CreateObjectInstance<IPlayer, EComponents>(EComponents.Player);
+            }
+
+            return player;
+        }
+
+        public ILevelSystem GetLevelSystem() // maybe static
+        {
+            if (levelSystem is null)
+            {
+                levelSystem = new LevelSystem
+                    (
+                    SLevelSystemData.currentLevel, 
+                    SLevelSystemData.currentExperience, 
+                    SLevelSystemData.maxExperience,
+                    SLevelSystemData.amountExperienceRaiseLevel
+                    );
+            }
+
+            return levelSystem;
+        }
+
+        public IUIRoot GetUIRoot() // maybe static
+        {
+            if (uIRoot is null)
+            {
+                resoursManager = GetResourseManager();
+
+                uIRoot = resoursManager.CreateObjectInstance<IUIRoot, EComponents>(EComponents.UIRoot);
+            }
+
+            return uIRoot;
+        }
+
+        public IHUD GetHUD() // maybe static
+        {
+            if (hUD is null)
+            {
+                resoursManager = GetResourseManager();
+
+                hUD = resoursManager.CreateObjectInstance<IHUD, EComponents>(EComponents.HUD);
+            }
+
+            return hUD;
+        }
+
+        public IPopups GetPopups() // maybe static
+        {
+            if (popups is null)
+            {
+                resoursManager = GetResourseManager();
+
+                popups = resoursManager.CreateObjectInstance<IPopups, EComponents>(EComponents.Popup);
+            }
+
+            return popups;
         }
 
         public void GameSessionStatus(bool status)
         {
-            _gameHasStarted = status;
-
-            UIRoot.Instance.CheckingStatusGameSession(status);
+            //UIRoot.Instance.CheckingStatusGameSession(status);
         }
 
         public IEnumerator InitGame(InfoSceneObjects info)
         {
-            _sceneController.UpdateAfterLaunch(info.LevelIndex);
+            //_sceneController.UpdateAfterLaunch(info.LevelIndex);
 
             _playerController = _playerSpawner.CreatePlayerInSession(info.PlayerSpawnTarget);
 
@@ -117,7 +187,7 @@ namespace ET
             //_enemyManager = Instantiate(_enemyManagerPrefab).GetComponent<EnemyManager>();
             //EnemyManager.GetPlayerPosition(_playerPosition);
 
-            _levelSystem = new LevelSystem();
+            //_levelSystem = new LevelSystem();
 
             yield return null;
         }

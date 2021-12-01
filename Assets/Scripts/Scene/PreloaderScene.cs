@@ -3,37 +3,72 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using ET.Core.LevelInfo;
-using ET.UI.LoadingView;
-using ET.Core.UIRoot;
+using ET.UI;
 using ET.UI.WindowTypes;
+using ET.Interface;
+using ET.Core;
+using ET.Enums.EComponents;
+using ET.Enums.Scenes;
+using UnityEngine.EventSystems;
 
-namespace ET.Scenes.Preloader
+namespace ET
 {
-    public class PreloaderScene : MonoBehaviour
+    public class PreloaderScene : MonoBehaviour, IPreloader
     {
+        private ILoadingScreen loadingScreen = null;
+        private IResoursManager _resoursManager = null;
+        public IScenesManager scenesManager = null;
+
         private AsyncOperation _loading = null;
 
-        [SerializeField] private LoadingViewController _loadingLineView;
+        //[SerializeField] private LoadingViewController _loadingLineView;
 
         protected void Awake()
         {
+            _resoursManager = new ResoursesManager();
+            scenesManager = new ScenesManager(this);
+
+            gameObject.AddComponent<EventSystem>();
+            gameObject.AddComponent<StandaloneInputModule>();
+
+            loadingScreen = _resoursManager.CreateObjectInstance<ILoadingScreen, EComponents>(EComponents.LoadingScreen);
+
             DontDestroyOnLoad(gameObject);
         }
 
         protected void Start()
         {
+            //transform.SetParent(loadingScreen.LoadingScreenransform);
+            //loadingScreen.LoadingScreenransform.SetParent(this.transform);
+
             SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString());
         }
 
-        public void Load(SceneIndex scene)
+        public IResoursManager GetResourseManager()
+        {
+            if (_resoursManager is null)
+            {
+                return new ResoursesManager();
+            }
+
+            return _resoursManager;
+        }
+
+        public IPreloader GetPreloader()
+        {
+            return this;
+        }
+
+        public void UploadScene(SceneIndex scene)
         {
             StartCoroutine(AsyncLoading(scene));
         }
 
-
         private IEnumerator AsyncLoading(SceneIndex scene)
         {
-            UIRoot.Instance.OpenWindow(WindowType.LOADING_SCREEN);
+            loadingScreen.Show();
+            
+            //UIRoot.Instance.OpenWindow(WindowType.LOADING_SCREEN);
 
             _loading = SceneManager.LoadSceneAsync(SceneIndex._GameSession.ToString());
 
@@ -41,7 +76,7 @@ namespace ET.Scenes.Preloader
 
             while (!_loading.isDone)
             {
-                _loadingLineView.LoadingLine.fillAmount += Mathf.Clamp01(1e-3f);
+                loadingScreen.LoadingLine.fillAmount += Mathf.Clamp01(1e-3f);
 
                 if (_loading.progress >= 0.9f)
                 {
@@ -61,7 +96,9 @@ namespace ET.Scenes.Preloader
 
             yield return GameManager.Instance.InitGame(infoSceneObjects);
 
-            UIRoot.Instance.CloseWindow(WindowType.LOADING_SCREEN);
+            loadingScreen.Hide();
+
+            //UIRoot.Instance.CloseWindow(WindowType.LOADING_SCREEN);
 
             if (_loading.isDone)
             {

@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using ET.Scenes;
 using ET.Core.Stats;
 using System;
-using ET.Core.UIRoot;
 using ET.Player.Skills;
 using ET.UI.WindowTypes;
 using ET.Player.Combat;
+using ET.Interface;
 
 namespace ET.Player
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IPlayer
     {
         private Animator _animator = null;
         private BoxCollider _boxCollider = null;
@@ -23,9 +22,9 @@ namespace ET.Player
         [Header("Parameters Object")]
         [SerializeField] private Transform _playerPosition;
         [Range(0, 100)]
-        [SerializeField] private float _maxHealth = 0;
+        [SerializeField] private float _maxHealth;
         [Range(0, 100)]
-        [SerializeField] private float _maxArmor = 0;
+        [SerializeField] private float _maxArmor;
 
         public event Action<float, int> onArmorViewChange;
         public event Action<float, int> onHealthViewChange;
@@ -88,7 +87,7 @@ namespace ET.Player
             }
         }
 
-        private void PlayerIsDying()
+        public void PlayerIsDying()
         {
             if (_isDead)
             {

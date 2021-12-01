@@ -10,7 +10,7 @@ namespace ET.Core.SaveSystem
 {
     public static class SaveSystem
     {
-        public static void SaveGame(PlayerController player, LevelSystem.LevelSystem progress)
+        public static void SaveGame(PlayerController player, LevelSystem progress)
         {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
 

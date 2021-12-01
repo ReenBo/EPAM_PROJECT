@@ -1,9 +1,7 @@
 using ET.Interface.IComand;
-using ET.Interface.UI;
+using ET.Interface;
 using ET.Player;
 using ET.Player.InputSystem;
-using ET.UI.HUD;
-using ET.UI.LoadingView;
 using ET.UI;
 using ET.UI.SkillsView;
 using ET.UI.WindowTypes;
@@ -12,46 +10,61 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ET.Core.UIRoot
+namespace ET.UI
 {
-    public class UIRoot : MonoBehaviour, ICommand
+    public class UIRoot : MonoBehaviour, IUIRoot, ICommand
     {
-        private static UIRoot _instance = null;
+        #region Singleton
+        //private static UIRoot _instance = null;
 
-        public static UIRoot Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    Debug.LogError("UIRoot is NULL");
-                }
+        //public static UIRoot Instance
+        //{
+        //    get
+        //    {
+        //        if (_instance == null)
+        //        {
+        //            Debug.LogError("UIRoot is NULL");
+        //        }
 
-                return _instance;
-            }
-        }
+        //        return _instance;
+        //    }
+        //}
+        #endregion
 
-        [Header("References to the UI Components")]
-        [SerializeField] private Popups _popups;
-        [SerializeField] private HUD _hUD;
+        //[Header("References to the UI Components")]
+        //[SerializeField] private Popups _popups;
+        //[SerializeField] private HUD _hUD;
 
         private bool _isVisible = false;
 
-        public Popups Popup { get => _popups; }
-        public HUD HUD { get => _hUD; }
+        private IPopups popups = null;
+        private IHUD hUD = null;
 
         protected void Awake()
         {
-            _instance = this;
+            //_instance = this;
 
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
+
+            popups = GameManager.Instance.GetPopups();
+            hUD = GameManager.Instance.GetHUD();
+        }
+
+        protected void Start()
+        {
+            hUD.Show();
+        }
+
+        protected void OnDestroy()
+        {
+            hUD.Hide();
         }
 
         public void OpenWindow(WindowType window)
         {
             if (!_isVisible)
             {
-                _popups.UIObjects[window].Show();
+                popups.UIObjects[window].Show();
                 _isVisible = true;
             }
         }
@@ -60,7 +73,7 @@ namespace ET.Core.UIRoot
         {
             if (_isVisible)
             {
-                _popups.UIObjects[window].Hide();
+                popups.UIObjects[window].Hide();
                 _isVisible = false;
             }
         }
@@ -69,7 +82,7 @@ namespace ET.Core.UIRoot
         {
             if (_isVisible)
             {
-                foreach (var pair in _popups.UIObjects.Values)
+                foreach (var pair in popups.UIObjects.Values)
                 {
                     pair.Hide();
                 }
@@ -89,10 +102,10 @@ namespace ET.Core.UIRoot
             }
         }
 
-        public void CheckingStatusGameSession(bool status)
-        {
-            HUD.InvolveDisplay(status);
-            HUD.ReceiveStatusOfSubscribersHandler(status);
-        }
+        //public void CheckingStatusGameSession(bool status)
+        //{
+        //    HUD.InvolveDisplay(status);
+        //    HUD.ReceiveStatusOfSubscribersHandler(status);
+        //}
     }
 }

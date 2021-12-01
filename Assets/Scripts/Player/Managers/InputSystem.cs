@@ -1,9 +1,9 @@
 using ET.Core.LevelInfo;
-using ET.Core.UIRoot;
 using ET.Device;
 using ET.Interface.IComand;
 using ET.Player.Skills;
 using ET.UI.WindowTypes;
+using ET.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ namespace ET.Player.InputSystem
         //public event Action<WindowType> onOpenWindow;
         //public event Action<WindowType> onCloseWindow;
 
-        protected void Start()
+        protected void Awake()
         {
             _skillsController = GetComponent<PlayerSkillsController>();
             _specialToolsController = GetComponent<SpecialToolsController>();
@@ -31,7 +31,7 @@ namespace ET.Player.InputSystem
 
             _commands = new Dictionary<KeyCode, ICommand>()
             {
-                { KeyCode.Escape, UIRoot.Instance },
+                //{ KeyCode.Escape, UIRoot.Instance },
                 { KeyCode.Q, _skillsController.RecoverySkill },
                 { KeyCode.Space, _specialToolsController },
                 { KeyCode.F, _interactionWithItems }

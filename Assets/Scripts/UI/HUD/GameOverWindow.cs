@@ -1,10 +1,9 @@
-using ET.Core.UIRoot;
-using ET.Interface.UI;
+using ET.Interface;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ET.UI.GameOver
+namespace ET.UI
 {
     public class GameOverWindow : MonoBehaviour, IUIScreenable
     {
@@ -35,7 +34,7 @@ namespace ET.UI.GameOver
                 else
                 {
                     Hide();
-                    GameManager.Instance.SceneController.ReturnMainMenu();
+                    //GameManager.Instance.SceneController.ReturnMainMenu();
                 }
                 yield return null;
             }

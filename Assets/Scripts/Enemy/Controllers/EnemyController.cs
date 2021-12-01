@@ -1,4 +1,5 @@
 using ET.Enemy.AI;
+using ET.Interface;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using Random = UnityEngine.Random;
 
 namespace ET.Enemy
 {
-    public class EnemyController : MonoBehaviour, IDamageable
+    public class EnemyController : MonoBehaviour, IEnemy, IDamageable
     {
         #region Variables
         private EnemyStateController _enemyState = null;
@@ -27,6 +28,8 @@ namespace ET.Enemy
         [SerializeField] private AudioClip _hitAudio;
 
         [SerializeField] private ParticleSystem _bloodFX;
+
+        public event Action<int> OnExperienceEarned;
 
         private bool _isDeath = false;
         //private bool _isResurrection = false;
@@ -56,10 +59,7 @@ namespace ET.Enemy
 
                 if (AmountHealth > 1e-3)
                 {
-                    var posBlood = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(1f, 1.5f), 0f);
-
-                    _bloodFX.transform.localPosition = posBlood;
-                    _bloodFX.Play();
+                    PlayBloodEffect();
 
                     _audioSource.PlayOneShot(_hitAudio);
 
@@ -87,9 +87,17 @@ namespace ET.Enemy
             }
         }
 
-        private void EnemyIsDying()
+        private void PlayBloodEffect()
         {
-            GameManager.Instance.LevelSystem.CalculateExperiencePlayer(_amountExperience); //!!!
+            var posBlood = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(1f, 1.5f), 0f);
+
+            _bloodFX.transform.localPosition = posBlood;
+            _bloodFX.Play();
+        }
+
+        public void EnemyIsDying()
+        {
+            OnExperienceEarned.Invoke(_amountExperience);
 
             _audioSource.PlayOneShot(_deadAudio);
 

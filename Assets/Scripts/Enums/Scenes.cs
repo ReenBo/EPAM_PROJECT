@@ -1,4 +1,4 @@
-namespace ET.Scenes
+namespace ET.Enums.Scenes
 {
     public readonly struct SceneName
     {

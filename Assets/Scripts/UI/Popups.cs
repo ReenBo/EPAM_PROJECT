@@ -1,7 +1,5 @@
-using ET.Interface.UI;
-using ET.UI.GameOver;
-using ET.UI.LoadingView;
-using ET.UI.PauseMenu;
+using ET.Interface;
+using ET.UI;
 using ET.UI.WindowTypes;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,14 +7,15 @@ using UnityEngine;
 
 namespace ET.UI
 {
-    public class Popups : MonoBehaviour
+    public class Popups : MonoBehaviour, IPopups
     {
         [SerializeField] private PauseMenuWindow _pauseMenuWindow;
         [SerializeField] private GameOverWindow _gameOverWindow;
-        [SerializeField] private LoadingViewController _loadingView;
+        //[SerializeField] private LoadingViewController _loadingView;
 
-        public PauseMenuWindow PauseMenuWindow { get => _pauseMenuWindow; }
-        public GameOverWindow GameOverWindow { get => _gameOverWindow; }
+        //public PauseMenuWindow PauseMenuWindow { get => _pauseMenuWindow; }
+        //public GameOverWindow GameOverWindow { get => _gameOverWindow; }
+
         public Dictionary<WindowType, IUIScreenable> UIObjects { get => _UIObjects; }
 
         private Dictionary<WindowType, IUIScreenable> _UIObjects;
@@ -27,7 +26,7 @@ namespace ET.UI
             {
                 { WindowType.PAUSE_MENU, _pauseMenuWindow },
                 { WindowType.GAME_OVER, _gameOverWindow },
-                { WindowType.LOADING_SCREEN, _loadingView }
+                //{ WindowType.LOADING_SCREEN, _loadingView }
             };
         }
     }

@@ -9,7 +9,7 @@ namespace ET.Environment.Door
     public class DoorsController : MonoBehaviour
     {
         [SerializeField] private GameObject _leftDoor;  /// -3.5
-        [SerializeField] private GameObject _RightDoor; ///  3.5 
+        [SerializeField] private GameObject _rightDoor; ///  3.5 
         [SerializeField] private DeviceActivationController _device;
         [SerializeField] private AudioClip _audioClipOpenDoor;
 
@@ -30,8 +30,8 @@ namespace ET.Environment.Door
             //StartCoroutine(StartingMechanism());
             _audioSource.PlayOneShot(_audioClipOpenDoor);
 
-            _leftDoor.transform.localPosition = _newPosleftDoor;
-            _RightDoor.transform.localPosition = _newPosRightDoor;
+            _leftDoor.transform.localPosition = Vector3.Lerp(_leftDoor.transform.localPosition, _newPosleftDoor, 1);
+            _rightDoor.transform.localPosition = Vector3.Lerp(_rightDoor.transform.localPosition, _newPosRightDoor, 1); ;
         }
 
         //private IEnumerator StartingMechanism()

@@ -1,11 +1,10 @@
-using ET.Core.UIRoot;
-using ET.Interface.UI;
+using ET.Interface;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ET.UI.PauseMenu
+namespace ET.UI
 {
     public class PauseMenuWindow : MonoBehaviour, IUIScreenable
     {

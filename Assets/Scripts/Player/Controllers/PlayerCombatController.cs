@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using ET.Weapons;
 using System;
-using ET.Core.UIRoot;
 
 namespace ET.Player.Combat
 {

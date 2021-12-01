@@ -8,6 +8,12 @@ namespace ET.Player.Spawner
     {
         [SerializeField] GameObject _player;
 
+        public GameObject Create(Transform target)
+        {
+            var player = Instantiate(_player, target.position, Quaternion.identity);
+            return player;
+        }
+
         public PlayerController CreatePlayerInSession(Transform target)
         {
             return Instantiate(_player, target.position, Quaternion.identity).

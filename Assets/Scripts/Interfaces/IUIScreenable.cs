@@ -1,4 +1,4 @@
-namespace ET.Interface.UI
+namespace ET.Interface
 {
     public interface IUIScreenable
     {
