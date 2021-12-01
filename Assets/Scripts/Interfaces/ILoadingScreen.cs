@@ -6,7 +6,7 @@ namespace ET.Interface
     public interface ILoadingScreen : IUIScreenable
     {
         public Image LoadingLine { get; set; }
-        Transform LoadingScreenransform { get; }
+        Transform LoadingScreenTransform { get; }
     }
 }
 

@@ -10,18 +10,18 @@ using ET.Core;
 using ET.Enums.EComponents;
 using ET.Enums.Scenes;
 using UnityEngine.EventSystems;
+using ET.Enums.Views;
 
 namespace ET
 {
     public class PreloaderScene : MonoBehaviour, IPreloader
     {
         private ILoadingScreen loadingScreen = null;
-        private IResoursManager _resoursManager = null;
+        public IResoursManager _resoursManager = null;
         public IScenesManager scenesManager = null;
+        public IMainMenu mainMenu = null;
 
         private AsyncOperation _loading = null;
-
-        //[SerializeField] private LoadingViewController _loadingLineView;
 
         protected void Awake()
         {
@@ -32,26 +32,36 @@ namespace ET
             gameObject.AddComponent<StandaloneInputModule>();
 
             loadingScreen = _resoursManager.CreateObjectInstance<ILoadingScreen, EComponents>(EComponents.LoadingScreen);
+            mainMenu = _resoursManager.CreateObjectInstance<IMainMenu, EView>(EView.MainMenu);
 
             DontDestroyOnLoad(gameObject);
         }
 
         protected void Start()
         {
-            //transform.SetParent(loadingScreen.LoadingScreenransform);
-            //loadingScreen.LoadingScreenransform.SetParent(this.transform);
-
-            SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString());
+            SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString(), LoadSceneMode.Additive);
+            mainMenu.Init(this);
+            mainMenu.Show();
         }
 
         public IResoursManager GetResourseManager()
         {
             if (_resoursManager is null)
             {
-                return new ResoursesManager();
+                _resoursManager = new ResoursesManager();
             }
 
             return _resoursManager;
+        }
+
+        public IScenesManager GetScenesManager()
+        {
+            if (scenesManager is null)
+            {
+                scenesManager = new ScenesManager(this);
+            }
+
+            return scenesManager;
         }
 
         public IPreloader GetPreloader()
@@ -102,7 +112,7 @@ namespace ET
 
             if (_loading.isDone)
             {
-                GameManager.Instance.GameSessionStatus(true);
+                GameManager.Instance.StartSession();
             }
 
             yield break;

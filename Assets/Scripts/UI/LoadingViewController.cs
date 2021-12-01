@@ -12,7 +12,7 @@ namespace ET.UI
         private Transform _loadingScreenransform;
 
         public Image LoadingLine { get => _loadingLine; set => _loadingLine = value; }
-        public Transform LoadingScreenransform { get => _loadingScreenransform; }
+        public Transform LoadingScreenTransform { get => _loadingScreenransform; }
 
         protected void Awake()
         {

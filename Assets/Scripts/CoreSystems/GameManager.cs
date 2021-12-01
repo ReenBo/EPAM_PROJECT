@@ -164,9 +164,9 @@ namespace ET
             return popups;
         }
 
-        public void GameSessionStatus(bool status)
+        public async void StartSession()
         {
-            //UIRoot.Instance.CheckingStatusGameSession(status);
+            throw new NotImplementedException();
         }
 
         public IEnumerator InitGame(InfoSceneObjects info)
