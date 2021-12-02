@@ -2,7 +2,11 @@ namespace ET.Enums.Views
 {
     public enum EView
     {
+        LoadingScreen,
         MainMenu,
-        CameraForMainMenu
+        CameraForMainMenu,
+        UIRoot,
+        HUD,
+        Popups
     }
 }

@@ -1,4 +1,3 @@
-using ET.Interface.IComand;
 using ET.Interface;
 using ET.Player;
 using ET.Player.InputSystem;
@@ -47,7 +46,11 @@ namespace ET.UI
             //DontDestroyOnLoad(gameObject);
 
             popups = GameManager.Instance.GetPopups();
+            popups.PopupsTransform.SetParent(transform);
+
             hUD = GameManager.Instance.GetHUD();
+            hUD.HUDTransform.SetParent(transform);
+
         }
 
         protected void Start()
@@ -102,10 +105,19 @@ namespace ET.UI
             }
         }
 
-        //public void CheckingStatusGameSession(bool status)
-        //{
-        //    HUD.InvolveDisplay(status);
-        //    HUD.ReceiveStatusOfSubscribersHandler(status);
-        //}
+        public void Ex() // TEST
+        {
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                if (!_isVisible)
+                {
+                    OpenWindow(WindowType.PAUSE_MENU);
+                }
+                else
+                {
+                    CloseWindow(WindowType.PAUSE_MENU);
+                }
+            }
+        }
     }
 }

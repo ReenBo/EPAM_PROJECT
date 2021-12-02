@@ -10,6 +10,8 @@ namespace ET.UI
 {
     public class HUD : MonoBehaviour, IHUD
     {
+        private Transform hUDTransform = null;
+
         private IPlayer _player;
 
         [SerializeField] private PlayerStatsView _playerStatsView;
@@ -19,8 +21,13 @@ namespace ET.UI
 
         protected void Awake()
         {
+            hUDTransform = transform;
+
             _player = GameManager.Instance.GetPlayer();
         }
+
+        public Transform HUDTransform { get => hUDTransform; }
+
 
         public PlayerStatsView PlayerStatsView { get => _playerStatsView; set => _playerStatsView = value; }
         public PlayerExperienceView PlayerExperienceView { get => _playerExperienceView; set => _playerExperienceView = value; }

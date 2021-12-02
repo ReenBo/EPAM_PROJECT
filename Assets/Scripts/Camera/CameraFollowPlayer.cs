@@ -1,10 +1,11 @@
+using ET.Interface;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace ET
 {
-    public class CameraFollowPlayer : MonoBehaviour
+    public class CameraFollowPlayer : MonoBehaviour, IMainCamera
     {
         private Transform _playerTransform;
         private Vector3 _distance;
@@ -13,11 +14,11 @@ namespace ET
         [Range(0, 10)]
         [SerializeField] private float _speed = 1;
 
-        protected void Start() /// !!!!!!!!!!!!!!!!!!
-        {
-            _playerTransform = GameObject.FindGameObjectWithTag("Player").transform; /// !!!!!!!!!!!!
-            _distance = transform.position - _playerTransform.position;
-        }
+        //protected void Start() /// !!!!!!!!!!!!!!!!!!
+        //{
+        //    _playerTransform = GameObject.FindGameObjectWithTag("Player").transform; /// !!!!!!!!!!!!
+        //    _distance = transform.position - _playerTransform.position;
+        //}
 
         protected void FixedUpdate()
         {

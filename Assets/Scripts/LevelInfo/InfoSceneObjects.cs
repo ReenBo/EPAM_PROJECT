@@ -1,13 +1,12 @@
 using ET.Device;
-using ET.Enemy;
-using ET.Enemy.AI;
 using ET.Enums.Scenes;
+using ET.Interface;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace ET.Core.LevelInfo
 {
-    public class InfoSceneObjects : MonoBehaviour
+    public class InfoSceneObjects : MonoBehaviour, ISceneInformation
     {
         [SerializeField] private SceneIndex _levelIndex;
 

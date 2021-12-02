@@ -12,7 +12,6 @@ namespace ET.UI
     public class MainMenu : MonoBehaviour, IMainMenu
     {
         private IPreloader _preloader = null;
-        private IScenesManager _scenesManager = null;
 
         [SerializeField] private Button _playGame;
         [SerializeField] private Button _load;
@@ -39,7 +38,6 @@ namespace ET.UI
 
         private void StartGame()
         {
-            Debug.Log("Start");
             _preloader.UploadScene(SceneIndex._Level_1);
         }
 

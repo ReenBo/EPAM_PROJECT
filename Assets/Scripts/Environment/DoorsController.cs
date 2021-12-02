@@ -27,19 +27,13 @@ namespace ET.Environment.Door
 
         public void Open()
         {
-            //StartCoroutine(StartingMechanism());
             _audioSource.PlayOneShot(_audioClipOpenDoor);
 
-            _leftDoor.transform.localPosition = Vector3.Lerp(_leftDoor.transform.localPosition, _newPosleftDoor, 1);
-            _rightDoor.transform.localPosition = Vector3.Lerp(_rightDoor.transform.localPosition, _newPosRightDoor, 1); ;
+            _leftDoor.transform.localPosition = _newPosleftDoor;
+            _rightDoor.transform.localPosition = _newPosRightDoor;
+
+            //_leftDoor.transform.localPosition = Vector3.Lerp(_leftDoor.transform.localPosition, _newPosleftDoor, 1);
+            //_rightDoor.transform.localPosition = Vector3.Lerp(_rightDoor.transform.localPosition, _newPosRightDoor, 1);
         }
-
-        //private IEnumerator StartingMechanism()
-        //{
-        //    while ()
-        //    {
-
-        //    }
-        //}
     }
 }

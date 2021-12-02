@@ -45,5 +45,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyManager: {fileID: 0}
   _playerSpawner: {fileID: 0}
-  _sceneController: {fileID: 0}
-  _camera: {fileID: 0}

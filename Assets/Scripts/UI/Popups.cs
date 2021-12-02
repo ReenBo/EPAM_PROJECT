@@ -9,6 +9,8 @@ namespace ET.UI
 {
     public class Popups : MonoBehaviour, IPopups
     {
+        private Transform _popupsTransform = null;
+
         [SerializeField] private PauseMenuWindow _pauseMenuWindow;
         [SerializeField] private GameOverWindow _gameOverWindow;
         //[SerializeField] private LoadingViewController _loadingView;
@@ -17,11 +19,14 @@ namespace ET.UI
         //public GameOverWindow GameOverWindow { get => _gameOverWindow; }
 
         public Dictionary<WindowType, IUIScreenable> UIObjects { get => _UIObjects; }
+        public Transform PopupsTransform { get => _popupsTransform; }
 
         private Dictionary<WindowType, IUIScreenable> _UIObjects;
 
         protected void Awake()
         {
+            _popupsTransform = transform;
+
             _UIObjects = new Dictionary<WindowType, IUIScreenable>
             {
                 { WindowType.PAUSE_MENU, _pauseMenuWindow },

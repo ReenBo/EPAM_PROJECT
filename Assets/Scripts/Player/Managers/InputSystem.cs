@@ -1,6 +1,6 @@
 using ET.Core.LevelInfo;
 using ET.Device;
-using ET.Interface.IComand;
+using ET.Interface;
 using ET.Player.Skills;
 using ET.UI.WindowTypes;
 using ET.UI;
@@ -13,7 +13,6 @@ namespace ET.Player.InputSystem
 {
     public class InputSystem : MonoBehaviour
     {
-
         private PlayerSkillsController _skillsController;
         private SpecialToolsController _specialToolsController;
         private InteractionWithItems _interactionWithItems;
@@ -31,7 +30,7 @@ namespace ET.Player.InputSystem
 
             _commands = new Dictionary<KeyCode, ICommand>()
             {
-                //{ KeyCode.Escape, UIRoot.Instance },
+                //{ KeyCode.Escape, _root },
                 { KeyCode.Q, _skillsController.RecoverySkill },
                 { KeyCode.Space, _specialToolsController },
                 { KeyCode.F, _interactionWithItems }

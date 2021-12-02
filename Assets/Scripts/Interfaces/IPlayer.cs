@@ -1,7 +1,5 @@
 using ET.UI.WindowTypes;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ET.Interface
@@ -12,6 +10,10 @@ namespace ET.Interface
         event Action<float, int> onHealthViewChange;
         event Action<WindowType> onPlayerDied;
 
+        Transform PlayerPosition { get; }
+
+        Transform GetPosition();
+        void SetPosition(Transform target);
         void Damage(float amount);
         void PlayerIsDying();
     }

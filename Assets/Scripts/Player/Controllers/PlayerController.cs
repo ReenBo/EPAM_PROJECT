@@ -37,7 +37,9 @@ namespace ET.Player
 
         public float CurrentHealth { get => _currentHealth; set => _currentHealth = value; }
         public float CurrentArmor { get => _currentArmor; set => _currentArmor = value; }
+
         public Transform PlayerPosition { get => _playerPosition; }
+
         public PlayerCombatController PlayerCombat { get => _playerCombat; }
         public PlayerSkillsController PlayerSkills { get => _playerSkills; }
 
@@ -50,6 +52,16 @@ namespace ET.Player
             _boxCollider = GetComponent<BoxCollider>();
             _playerCombat = GetComponent<PlayerCombatController>();
             _playerSkills = GetComponent<PlayerSkillsController>();
+        }
+
+        public Transform GetPosition()
+        {
+            return transform;
+        }
+
+        public void SetPosition(Transform target)
+        {
+            transform.position = target.position;
         }
 
         public void Damage(float amount)

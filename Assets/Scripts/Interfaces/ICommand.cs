@@ -1,4 +1,4 @@
-namespace ET.Interface.IComand
+namespace ET.Interface
 {
     public interface ICommand
     {

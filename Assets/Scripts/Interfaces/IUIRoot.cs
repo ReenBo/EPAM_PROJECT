@@ -1,8 +1,11 @@
 using ET.UI.WindowTypes;
 
-public interface IUIRoot
+namespace ET.Interface
 {
-    void OpenWindow(WindowType window);
-    void CloseWindow(WindowType window);
-    void CloseAllWindow();
+    public interface IUIRoot
+    {
+        void OpenWindow(WindowType window);
+        void CloseWindow(WindowType window);
+        void CloseAllWindow();
+    }
 }

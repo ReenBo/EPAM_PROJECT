@@ -31,8 +31,8 @@ namespace ET
             gameObject.AddComponent<EventSystem>();
             gameObject.AddComponent<StandaloneInputModule>();
 
-            loadingScreen = _resoursManager.CreateObjectInstance<ILoadingScreen, EComponents>(EComponents.LoadingScreen);
             mainMenu = _resoursManager.CreateObjectInstance<IMainMenu, EView>(EView.MainMenu);
+            mainMenu.Init(this);
 
             DontDestroyOnLoad(gameObject);
         }
@@ -40,7 +40,6 @@ namespace ET
         protected void Start()
         {
             SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString(), LoadSceneMode.Additive);
-            mainMenu.Init(this);
             mainMenu.Show();
         }
 
@@ -64,6 +63,16 @@ namespace ET
             return scenesManager;
         }
 
+        public ILoadingScreen GetLoadingScreen()
+        {
+            if (loadingScreen is null)
+            {
+                loadingScreen = _resoursManager.CreateObjectInstance<ILoadingScreen, EView>(EView.LoadingScreen);
+            }
+
+            return loadingScreen;
+        }
+
         public IPreloader GetPreloader()
         {
             return this;
@@ -76,17 +85,16 @@ namespace ET
 
         private IEnumerator AsyncLoading(SceneIndex scene)
         {
-            loadingScreen.Show();
+            var bootScreen = GetLoadingScreen();
+
+            bootScreen.Show();
             
-            //UIRoot.Instance.OpenWindow(WindowType.LOADING_SCREEN);
-
             _loading = SceneManager.LoadSceneAsync(SceneIndex._GameSession.ToString());
-
             _loading.allowSceneActivation = false;
 
             while (!_loading.isDone)
             {
-                loadingScreen.LoadingLine.fillAmount += Mathf.Clamp01(1e-3f);
+                bootScreen.LoadingLine.fillAmount += Mathf.Clamp01(1e-3f);
 
                 if (_loading.progress >= 0.9f)
                 {
@@ -94,21 +102,19 @@ namespace ET
                 }
             }
 
-            //_loading = SceneManager.LoadSceneAsync(scene.ToString(), LoadSceneMode.Additive);
-            _loading = SceneManager.LoadSceneAsync(SceneIndex._TESTING.ToString(), LoadSceneMode.Additive);
+            _loading = SceneManager.LoadSceneAsync(scene.ToString(), LoadSceneMode.Additive);
             yield return _loading;
-
 
             var levelInfo = GameObject.FindGameObjectWithTag(Tags.LEVEL_INFO);
             InfoSceneObjects infoSceneObjects = levelInfo.GetComponent<InfoSceneObjects>();
 
             yield return null;
 
+            scenesManager.UpdateAfterLaunch(infoSceneObjects.LevelIndex);
+
             yield return GameManager.Instance.InitGame(infoSceneObjects);
 
-            loadingScreen.Hide();
-
-            //UIRoot.Instance.CloseWindow(WindowType.LOADING_SCREEN);
+            //bootScreen.Hide(); 
 
             if (_loading.isDone)
             {
