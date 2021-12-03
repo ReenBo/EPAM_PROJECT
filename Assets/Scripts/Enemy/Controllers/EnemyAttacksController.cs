@@ -1,3 +1,4 @@
+using ET.Interface;
 using ET.Player;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +8,6 @@ namespace ET.Enemy
 {
     public class EnemyAttacksController : MonoBehaviour
     {
-        private PlayerController _playerController = null;
         private Animator _animator = null;
 
         private float _damageArm = 0f;
@@ -26,11 +26,11 @@ namespace ET.Enemy
 
         protected void OnTriggerEnter(Collider collider)
         {
-            _playerController = collider.GetComponent<PlayerController>();
+            var player  = collider.GetComponent<IPlayer>();
 
-            if (_playerController != null)
+            if (player != null)
             {
-                _playerController.Damage(DamageArm);
+                player.Damage(DamageArm);
             }
         }
 

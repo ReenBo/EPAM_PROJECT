@@ -1,6 +1,5 @@
 using ET.Interface;
 using ET.Player;
-using ET.Player.InputSystem;
 using ET.UI;
 using ET.UI.SkillsView;
 using ET.UI.WindowTypes;
@@ -50,7 +49,6 @@ namespace ET.UI
 
             hUD = GameManager.Instance.GetHUD();
             hUD.HUDTransform.SetParent(transform);
-
         }
 
         protected void Start()

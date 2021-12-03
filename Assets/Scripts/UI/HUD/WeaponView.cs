@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ET.UI.Weapon
+namespace ET.UI
 {
     public class WeaponView : MonoBehaviour
     {

@@ -1,3 +1,4 @@
+using ET.Interface;
 using ET.Player;
 using System;
 using System.Collections;
@@ -16,7 +17,7 @@ namespace ET.Weapons
         GUN_TURRET
     }
 
-    public class WeaponsController : MonoBehaviour
+    public class WeaponsController : MonoBehaviour, IWeapon
     {
         #region Variables
         private AudioSource _audioSource = null;
@@ -38,8 +39,6 @@ namespace ET.Weapons
         [SerializeField] private AudioClip _reloadingAudio;
 
         [SerializeField] private GameObject[] _arrayBullets = new GameObject[4];
-
-        public event Action<int, int> onAmmoCountViemChange;
 
         private ParticleSystem _muzzleFlashes = null;
         private Transform _bulletSpawn;
@@ -111,7 +110,6 @@ namespace ET.Weapons
 
             _ammoCounter = _numberRoundsInMagazine;
             _getAmmo = true;
-            onAmmoCountViemChange.Invoke(_numberRoundsInMagazine, _ammoCounter);
         }
 
         private void CalculateAmmos()
@@ -119,7 +117,6 @@ namespace ET.Weapons
             if (_ammoCounter > 0)
             {
                 _ammoCounter -= 1;
-                //onAmmoCountViemChange.Invoke(_numberRoundsInMagazine, _ammoCounter);
             }
             else _getAmmo = false;
         }

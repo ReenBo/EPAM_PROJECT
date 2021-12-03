@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using ET.Weapons;
 using System;
+using ET.Interface;
 
-namespace ET.Player.Combat
+namespace ET.Player
 {
-    public class PlayerCombatController : MonoBehaviour
+    public class PlayerCombatController : MonoBehaviour, IPlayerCombat
     {
         #region Variables
         private Animator _animator = null;
 
-        private Rigidbody _rigidbody = null;
         private WeaponsController _weaponsController = null;
 
         [Header("List of weapons")]
         [SerializeField] private List<GameObject> _weaponsList;
+        private Dictionary<KeyCode, GameObject> _weaponDic; //!!!!!!!!!!!!
 
         public event Action<float, string, int> onWeaponViewChange;
         public event Action<int, int> onPlayerStatsViewChange;
@@ -23,8 +24,8 @@ namespace ET.Player.Combat
         private float _delayShoot = 0f;
         private float _timeDelay = 0f;
 
-        private readonly string _fire1 = "Fire1";
-        private readonly string _mouseScrollWheel = "Mouse ScrollWheel";
+        private const string _fire1 = "Fire1";
+        private const string _mouseScrollWheel = "Mouse ScrollWheel";
 
         private bool _isShooting = false;
         //private bool _isRuning = false;
@@ -32,7 +33,7 @@ namespace ET.Player.Combat
         private int[] _bulletArray = new int[4] { 0, 1, 2, 3 };
         private int _bulletIDNumber = 0;
         private int _enumNumber = 0;
-        private int numberBulletPlayerHas = 3;
+        private int _numberBulletPlayerHas = 3;
 
         private WeapomType _weapomType;
         private string _nameWeapon = string.Empty;
@@ -46,10 +47,9 @@ namespace ET.Player.Combat
         public int BulletIDNumber
         {
             get => _bulletIDNumber;
-            set => _bulletIDNumber = Mathf.Clamp(value, 0, numberBulletPlayerHas);
+            set => _bulletIDNumber = Mathf.Clamp(value, 0, _numberBulletPlayerHas);
         }
         public WeaponsController WeaponsController { get => _weaponsController; }
-
         #region Animations Hash Code
         private int _shooting = Animator.StringToHash(AnimationsTags.SHOOTING);
         private int _reloadWeapons = Animator.StringToHash(AnimationsTags.RELODING_WEAPONS);
@@ -59,7 +59,6 @@ namespace ET.Player.Combat
         protected void Awake()
         {
             _animator = GetComponent<Animator>();
-            _rigidbody = GetComponent<Rigidbody>();
         }
 
         protected void Start()
@@ -73,6 +72,13 @@ namespace ET.Player.Combat
                 KeyCode.Alpha1,
                 KeyCode.Alpha2,
                 KeyCode.Alpha3,
+            };
+
+            _weaponDic = new Dictionary<KeyCode, GameObject>() // !!!!!!!!!!!!!!!!!!!!!!
+            {
+                { _keyCodes[1], _weaponsList[0] },
+                { _keyCodes[2], _weaponsList[1] },
+                { _keyCodes[3], _weaponsList[2] }
             };
         }
 
@@ -94,6 +100,7 @@ namespace ET.Player.Combat
                     _animator.SetTrigger(_shooting);
 
                     _weaponsController.Shoot(_bulletArray[BulletIDNumber]);
+                    onPlayerStatsViewChange.Invoke(_amountBullets, _amountAmmo);
 
                     _delayShoot = _timeDelay;
                 }
@@ -197,6 +204,7 @@ namespace ET.Player.Combat
                 {
                     _animator.SetTrigger(_reloadWeapons);
                     _weaponsController.ReloadingWeapons();
+                    onPlayerStatsViewChange.Invoke(_amountBullets, _amountAmmo);
                 }
             }
         }

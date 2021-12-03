@@ -7,7 +7,6 @@ using ET.Core.Stats;
 using ET.Core.SaveSystem;
 using ET.Weapons;
 using System;
-using ET.Player.Combat;
 using ET.Player.Skills;
 using ET.Interface;
 using ET.Core;
@@ -36,6 +35,8 @@ namespace ET
         }
 
         public IPlayer player = null;
+        public IPlayerCombat playerCombat = null;
+
         public IMainCamera mainCamera = null;
         public IEnemy enemy = null;
         public IResoursManager resoursManager = null;

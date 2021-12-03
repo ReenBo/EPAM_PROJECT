@@ -9,7 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ET.Player.InputSystem
+namespace ET.Player
 {
     public class InputSystem : MonoBehaviour
     {

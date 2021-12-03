@@ -6,7 +6,6 @@ using ET.Core.Stats;
 using System;
 using ET.Player.Skills;
 using ET.UI.WindowTypes;
-using ET.Player.Combat;
 using ET.Interface;
 
 namespace ET.Player
@@ -18,6 +17,10 @@ namespace ET.Player
 
         private PlayerCombatController _playerCombat = null;
         private PlayerSkillsController _playerSkills = null;
+        private RecoverySkill _recoverySkill = null;
+        private InputSystem _inputSystem = null;
+        private SpecialToolsController _specialTools = null;
+        private InteractionWithItems _interactionWithItems = null;
 
         [Header("Parameters Object")]
         [SerializeField] private Transform _playerPosition;
@@ -42,6 +45,7 @@ namespace ET.Player
 
         public PlayerCombatController PlayerCombat { get => _playerCombat; }
         public PlayerSkillsController PlayerSkills { get => _playerSkills; }
+        public RecoverySkill RecoverySkill { get => _recoverySkill; }
 
         protected void Awake()
         {
@@ -52,6 +56,7 @@ namespace ET.Player
             _boxCollider = GetComponent<BoxCollider>();
             _playerCombat = GetComponent<PlayerCombatController>();
             _playerSkills = GetComponent<PlayerSkillsController>();
+            _recoverySkill = GetComponentInChildren<RecoverySkill>();
         }
 
         public Transform GetPosition()

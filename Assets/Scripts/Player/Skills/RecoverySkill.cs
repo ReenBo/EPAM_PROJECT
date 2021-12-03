@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ET.Player.Skills
 {
-    public class RecoverySkill : MonoBehaviour, ICommand
+    public class RecoverySkill : MonoBehaviour, IRecoverySkill, ICommand
     {
         private PlayerController _playerController = null;
 
@@ -14,8 +14,8 @@ namespace ET.Player.Skills
         private float _maxHealth = 100f;
         private bool _resetIsAvailable = true;
 
-        public Action<float, int> onDisplaySkill;
-        public Action<float, float> onHealthViewChange;
+        public event Action<float, int> onDisplaySkill;
+        public event Action<float, float> onHealthViewChange;
 
         protected void Start()
         {
