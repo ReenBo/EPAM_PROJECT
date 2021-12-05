@@ -16,7 +16,7 @@ namespace ET.Player
 
         [Header("List of weapons")]
         [SerializeField] private List<GameObject> _weaponsList;
-        private Dictionary<KeyCode, GameObject> _weaponDic; //!!!!!!!!!!!!
+        private Dictionary<int, GameObject> _weaponDict; //!!!!!!!!!!!!
 
         public event Action<float, string, int> onWeaponViewChange;
         public event Action<int, int> onPlayerStatsViewChange;
@@ -28,6 +28,7 @@ namespace ET.Player
         private const string _mouseScrollWheel = "Mouse ScrollWheel";
 
         private bool _isShooting = false;
+        private bool _isSwitched = false;
         //private bool _isRuning = false;
 
         private int[] _bulletArray = new int[4] { 0, 1, 2, 3 };
@@ -63,8 +64,8 @@ namespace ET.Player
 
         protected void Start()
         {
-            UpdateWeaponStats();
-            DetermineTypeOfWeapon();
+            //UpdateWeaponStats();
+            //DetermineTypeOfWeapon();
 
             _keyCodes = new KeyCode[]
             {
@@ -74,11 +75,11 @@ namespace ET.Player
                 KeyCode.Alpha3,
             };
 
-            _weaponDic = new Dictionary<KeyCode, GameObject>() // !!!!!!!!!!!!!!!!!!!!!!
+            _weaponDict = new Dictionary<int, GameObject>() // !!!!!!!!!!!!!!!!!!!!!!
             {
-                { _keyCodes[1], _weaponsList[0] },
-                { _keyCodes[2], _weaponsList[1] },
-                { _keyCodes[3], _weaponsList[2] }
+                { 1, _weaponsList[0] },
+                { 2, _weaponsList[1] },
+                { 3, _weaponsList[2] }
             };
         }
 
@@ -112,6 +113,18 @@ namespace ET.Player
             }
         }
 
+        private void SwitchWeapon(int indexWeapon)
+        {
+            foreach (var item in _weaponDict)
+            {
+                if (item.Key.Equals(indexWeapon))
+                {
+                    _weaponsController = item.Value.GetComponentInChildren<WeaponsController>();
+                    Debug.Log(_weaponsController);
+                }
+            }
+        }
+
         private void ChangingWeapon()
         {
             for (int i = 0; i < _keyCodes.Length; i++)
@@ -128,10 +141,14 @@ namespace ET.Player
                         _animator.SetTrigger(_changingWeapon);
                     }
 
+                    var index = i - 1;
+
+                    SwitchWeapon(i);
+                    Debug.Log("Index" + index);
+                    
                     _weaponsList[i - 1].SetActive(true);
 
-                    UpdateWeaponStats();
-                    DetermineTypeOfWeapon();
+                    //DetermineTypeOfWeapon();
 
                     _selectedWeapon = i;
 
@@ -143,9 +160,8 @@ namespace ET.Player
 
         private void UpdateWeaponStats()
         {
-            _weaponsController = GetComponentInChildren<WeaponsController>();
-
             _weapomType = _weaponsController.WeaponType;
+            _nameWeapon = _weapomType.ToString();
             _timeDelay = _weaponsController.TimeDelay;
             _amountBullets = _weaponsController.NumberRoundsInMagazine;
             _amountAmmo = _weaponsController.AmmoCounter;
@@ -155,10 +171,24 @@ namespace ET.Player
             _weaponsController.AmmoCounter = _amountAmmo;
         }
 
-        private void DetermineTypeOfWeapon()
-        {
-            _nameWeapon = _weapomType.ToString();
-        }
+        //private void UpdateWeaponStats()
+        //{
+        //    _weaponsController = GetComponentInChildren<WeaponsController>();
+
+        //    _weapomType = _weaponsController.WeaponType;
+        //    _timeDelay = _weaponsController.TimeDelay;
+        //    _amountBullets = _weaponsController.NumberRoundsInMagazine;
+        //    _amountAmmo = _weaponsController.AmmoCounter;
+        //    var thisAudioSource = _weaponsController.AudioSource;
+
+        //    _weaponsController.AudioSource = thisAudioSource;
+        //    _weaponsController.AmmoCounter = _amountAmmo;
+        //}
+
+        //private void DetermineTypeOfWeapon()
+        //{
+        //    _nameWeapon = _weapomType.ToString();
+        //}
 
         private void SwitchBullets()
         {

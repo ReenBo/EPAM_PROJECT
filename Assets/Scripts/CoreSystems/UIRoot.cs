@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace ET.UI
 {
-    public class UIRoot : MonoBehaviour, IUIRoot, ICommand
+    public class UIRoot : MonoBehaviour, IUIRoot
     {
         #region Singleton
         //private static UIRoot _instance = null;
@@ -29,43 +29,49 @@ namespace ET.UI
         //}
         #endregion
 
-        //[Header("References to the UI Components")]
-        //[SerializeField] private Popups _popups;
-        //[SerializeField] private HUD _hUD;
-
         private bool _isVisible = false;
 
-        private IPopups popups = null;
-        private IHUD hUD = null;
+        private IPlayer _player = null;
+        private IPopups _popups = null;
+        private IHUD _hUD = null;
 
         protected void Awake()
         {
-            //_instance = this;
+            _popups = GameManager.Instance.GetPopups();
+            _popups.PopupsTransform.SetParent(transform);
 
-            //DontDestroyOnLoad(gameObject);
-
-            popups = GameManager.Instance.GetPopups();
-            popups.PopupsTransform.SetParent(transform);
-
-            hUD = GameManager.Instance.GetHUD();
-            hUD.HUDTransform.SetParent(transform);
+            _hUD = GameManager.Instance.GetHUD();
+            _hUD.HUDTransform.SetParent(transform);
         }
 
         protected void Start()
         {
-            hUD.Show();
+            _hUD.Show();
+        }
+
+        public void Init(IPlayer player, ILevelSystem levelSystem)
+        {
+            _player = player;
+
+            _hUD.Init(_player, levelSystem);
+
+            _player.onOpenWindow += OpenWindow;
+            _player.onCloseWindow += CloseWindow;
         }
 
         protected void OnDestroy()
         {
-            hUD.Hide();
+            _hUD.Hide();
+
+            _player.onOpenWindow -= OpenWindow;
+            _player.onCloseWindow -= CloseWindow;
         }
 
         public void OpenWindow(WindowType window)
         {
             if (!_isVisible)
             {
-                popups.UIObjects[window].Show();
+                _popups.UIObjects[window].Show();
                 _isVisible = true;
             }
         }
@@ -74,7 +80,7 @@ namespace ET.UI
         {
             if (_isVisible)
             {
-                popups.UIObjects[window].Hide();
+                _popups.UIObjects[window].Hide();
                 _isVisible = false;
             }
         }
@@ -83,7 +89,7 @@ namespace ET.UI
         {
             if (_isVisible)
             {
-                foreach (var pair in popups.UIObjects.Values)
+                foreach (var pair in _popups.UIObjects.Values)
                 {
                     pair.Hide();
                 }
@@ -100,21 +106,6 @@ namespace ET.UI
             else
             {
                 CloseWindow(WindowType.PAUSE_MENU);
-            }
-        }
-
-        public void Ex() // TEST
-        {
-            if (Input.GetKey(KeyCode.Escape))
-            {
-                if (!_isVisible)
-                {
-                    OpenWindow(WindowType.PAUSE_MENU);
-                }
-                else
-                {
-                    CloseWindow(WindowType.PAUSE_MENU);
-                }
             }
         }
     }

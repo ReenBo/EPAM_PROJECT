@@ -63,8 +63,6 @@ namespace ET.Weapons
 
         protected void Start()
         {
-            //onAmmoCountViemChange.Invoke(_numberRoundsInMagazine, _ammoCounter);
-
             _muzzleFlashes = _muzzleFlashesPrefab.GetComponent<ParticleSystem>();
         }
 

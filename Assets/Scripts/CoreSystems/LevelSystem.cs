@@ -43,7 +43,7 @@ namespace ET.Core
             enemy.OnExperienceEarned += CalculateExperiencePlayer;
         }
 
-        public void CalculateExperiencePlayer(int experience)
+        private void CalculateExperiencePlayer(int experience)
         {
             _currentExperience += experience;
 

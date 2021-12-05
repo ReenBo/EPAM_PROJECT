@@ -36,11 +36,11 @@ namespace ET
 
         public IPlayer player = null;
         public IPlayerCombat playerCombat = null;
-
         public IMainCamera mainCamera = null;
         public IEnemy enemy = null;
         public IResoursManager resoursManager = null;
         public ILevelSystem levelSystem = null;
+        public ICharacterStats characterStats = null;
         public IUIRoot uIRoot = null;
         public IHUD hUD = null;
         public IPopups popups = null;
@@ -50,20 +50,12 @@ namespace ET
         [SerializeField] private EnemyManager _enemyManager;
 
         private PlayerController _playerController;
-        private PlayerCombatController _playerCombatController;
-        private WeaponsController _weaponsController;
-        private RecoverySkill _recoverySkill;
-
         private LevelSystem _levelSystem;
         private CharacterStats _stats;
 
         public PlayerController PlayerController { get => _playerController; private set => _playerController = value; }
-        public PlayerCombatController PlayerCombatController { get => _playerCombatController; }
         public CharacterStats Stats { get => _stats; set => _stats = value; }
         public EnemyManager EnemyManager { get => _enemyManager; }
-
-        public WeaponsController WeaponsController { get => _weaponsController; }
-        public RecoverySkill RecoverySkill { get => _recoverySkill; set => _recoverySkill = value; }
         #endregion
 
         protected void Awake()
@@ -74,6 +66,7 @@ namespace ET
             player = GetPlayer();
             uIRoot = GetUIRoot();
             levelSystem = GetLevelSystem();
+            characterStats = GetCharacterStats();
         }
 
         protected void Start()
@@ -88,11 +81,12 @@ namespace ET
             }
 
             mainCamera = null;
-            player = null;
             enemy = null;
             resoursManager = null;
             levelSystem = null;
+            characterStats = null;
             uIRoot = null;
+            player = null;
         }
 
         public IResoursManager GetResourseManager() // maybe static
@@ -145,6 +139,18 @@ namespace ET
             return levelSystem;
         }
 
+        public ICharacterStats GetCharacterStats() // maybe static
+        {
+            if (characterStats is null)
+            {
+                resoursManager = GetResourseManager();
+
+                characterStats = new CharacterStats(player, levelSystem);
+            }
+
+            return characterStats;
+        }
+
         public IUIRoot GetUIRoot() // maybe static
         {
             if (uIRoot is null)
@@ -192,16 +198,10 @@ namespace ET
 
             mainCamera.GetPlayerPosition(player.GetPosition());
 
-            //_playerCombatController = _playerController.transform.GetComponent<PlayerCombatController>();
-            //_weaponsController = _playerController.transform.GetComponentInChildren<WeaponsController>();
-            //_recoverySkill = _playerController.transform.GetComponentInChildren<RecoverySkill>();
-
-            //_camera.GetPlayerPosition(_playerPosition);
+            uIRoot.Init(player, levelSystem);
 
             //_enemyManager = Instantiate(_enemyManagerPrefab).GetComponent<EnemyManager>();
             //EnemyManager.GetPlayerPosition(_playerPosition);
-
-            //_levelSystem = new LevelSystem();
 
             yield return null;
         }

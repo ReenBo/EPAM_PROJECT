@@ -43,7 +43,7 @@ namespace ET
             mainMenu.Show();
         }
 
-        public IResoursManager GetResourseManager()
+        private IResoursManager GetResourseManager()
         {
             if (_resoursManager is null)
             {
@@ -53,7 +53,7 @@ namespace ET
             return _resoursManager;
         }
 
-        public IScenesManager GetScenesManager()
+        private IScenesManager GetScenesManager()
         {
             if (scenesManager is null)
             {
@@ -63,7 +63,7 @@ namespace ET
             return scenesManager;
         }
 
-        public ILoadingScreen GetLoadingScreen()
+        private ILoadingScreen GetLoadingScreen()
         {
             if (loadingScreen is null)
             {

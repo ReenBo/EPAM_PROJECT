@@ -56,7 +56,6 @@ namespace ET.UI
             Application.Quit();
         }
 
-
         public void Show()
         {
             gameObject.SetActive(true);

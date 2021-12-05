@@ -13,25 +13,23 @@ namespace ET.Player
 {
     public class InputSystem : MonoBehaviour
     {
+        private PlayerController _playerController = null;
         private PlayerSkillsController _skillsController;
         private SpecialToolsController _specialToolsController;
         private InteractionWithItems _interactionWithItems;
 
-        private Dictionary<KeyCode, ICommand> _commands;
-
-        //public event Action<WindowType> onOpenWindow;
-        //public event Action<WindowType> onCloseWindow;
+        private Dictionary<KeyCode, ICommand> _classCommands;
 
         protected void Awake()
         {
+            _playerController = GetComponent<PlayerController>();
             _skillsController = GetComponent<PlayerSkillsController>();
             _specialToolsController = GetComponent<SpecialToolsController>();
             _interactionWithItems = GetComponent<InteractionWithItems>();
 
-            _commands = new Dictionary<KeyCode, ICommand>()
+            _classCommands = new Dictionary<KeyCode, ICommand>()
             {
-                //{ KeyCode.Escape, _root },
-                { KeyCode.Q, _skillsController.RecoverySkill },
+                { KeyCode.Q, _playerController.PlayerSkills.RecoverySkill },
                 { KeyCode.Space, _specialToolsController },
                 { KeyCode.F, _interactionWithItems }
             };
@@ -44,7 +42,7 @@ namespace ET.Player
 
         private void ActivateCommand()
         {
-            foreach (var command in _commands)
+            foreach (var command in _classCommands)
             {
                 if (Input.GetKeyDown(command.Key))
                 {

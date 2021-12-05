@@ -17,7 +17,6 @@ namespace ET.Player
 
         private PlayerCombatController _playerCombat = null;
         private PlayerSkillsController _playerSkills = null;
-        private RecoverySkill _recoverySkill = null;
         private InputSystem _inputSystem = null;
         private SpecialToolsController _specialTools = null;
         private InteractionWithItems _interactionWithItems = null;
@@ -31,12 +30,14 @@ namespace ET.Player
 
         public event Action<float, int> onArmorViewChange;
         public event Action<float, int> onHealthViewChange;
-        public event Action<WindowType> onPlayerDied;
+        public event Action<WindowType> onOpenWindow;
+        public event Action<WindowType> onCloseWindow;
 
         private float _currentHealth = 0;
         private float _currentArmor = 0;
 
         private bool _isDead = false;
+        private bool _isVisible = false;
 
         public float CurrentHealth { get => _currentHealth; set => _currentHealth = value; }
         public float CurrentArmor { get => _currentArmor; set => _currentArmor = value; }
@@ -45,18 +46,23 @@ namespace ET.Player
 
         public PlayerCombatController PlayerCombat { get => _playerCombat; }
         public PlayerSkillsController PlayerSkills { get => _playerSkills; }
-        public RecoverySkill RecoverySkill { get => _recoverySkill; }
+        public InputSystem InputSystem { get => _inputSystem; }
 
         protected void Awake()
         {
-            _currentArmor = _maxArmor;
             _currentHealth = _maxHealth;
+            _currentArmor = _maxArmor;
 
             _animator = GetComponent<Animator>();
             _boxCollider = GetComponent<BoxCollider>();
+            _inputSystem = GetComponent<InputSystem>();
             _playerCombat = GetComponent<PlayerCombatController>();
             _playerSkills = GetComponent<PlayerSkillsController>();
-            _recoverySkill = GetComponentInChildren<RecoverySkill>();
+        }
+
+        protected void LateUpdate()
+        {
+            SwitchWindow();
         }
 
         public Transform GetPosition()
@@ -104,6 +110,23 @@ namespace ET.Player
             }
         }
 
+        private void SwitchWindow()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (!_isVisible)
+                {
+                    onOpenWindow(WindowType.PAUSE_MENU);
+                    _isVisible = true;
+                }
+                else
+                {
+                    onCloseWindow(WindowType.PAUSE_MENU);
+                    _isVisible = false;
+                }
+            }
+        }
+
         public void PlayerIsDying()
         {
             if (_isDead)
@@ -118,7 +141,7 @@ namespace ET.Player
                 gameObject.GetComponent<PlayerMovement>().enabled = false;
                 _animator.SetTrigger(AnimationsTags.DEATH_TRIGGER);
 
-                onPlayerDied.Invoke(WindowType.GAME_OVER);
+                onOpenWindow.Invoke(WindowType.GAME_OVER);
 
                 //Destroy(gameObject, 3);
             }

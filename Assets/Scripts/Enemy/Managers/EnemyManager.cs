@@ -20,7 +20,6 @@ namespace ET.Enemy
         [SerializeField] private GameObject _enemyPrefab;
         [SerializeField] private EnemyStateController _enemyStateController;
 
-        public GameObject EnemyPrefab { get => _enemyPrefab; }
         public EnemyStateController EnemyStateController { get => _enemyStateController; }
         public Transform PlayerTransform { get => _playerTransform;} 
 

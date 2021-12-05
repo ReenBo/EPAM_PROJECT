@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ET.Player.Skills
 {
-    public class RecoverySkill : MonoBehaviour, IRecoverySkill, ICommand
+    public class RecoverySkill : MonoBehaviour, IRecoverySkill
     {
         private PlayerController _playerController = null;
 
@@ -17,7 +17,7 @@ namespace ET.Player.Skills
         public event Action<float, int> onDisplaySkill;
         public event Action<float, float> onHealthViewChange;
 
-        protected void Start()
+        protected void Awake()
         {
             _playerController = GetComponentInParent<PlayerController>();
         }

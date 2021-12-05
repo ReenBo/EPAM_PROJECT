@@ -33,9 +33,9 @@ namespace ET.Device
 
         private void OnTriggerEnter(Collider collider)
         {
-            var _playerController = collider.GetComponent<PlayerController>();
+            var player = collider.GetComponent<IPlayer>();
 
-            if (_playerController != null)
+            if (player != null)
             {
                 _activatingButton.gameObject.SetActive(true);
                 _isActivated = true;
@@ -44,9 +44,9 @@ namespace ET.Device
 
         private void OnTriggerExit(Collider collider)
         {
-            var _playerController = collider.GetComponent<PlayerController>();
+            var player = collider.GetComponent<IPlayer>();
 
-            if (_playerController != null)
+            if (player != null)
             {
                 _activatingButton.gameObject.SetActive(false);
                 _isActivated = false;

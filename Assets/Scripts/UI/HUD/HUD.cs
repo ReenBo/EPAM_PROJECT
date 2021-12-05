@@ -11,10 +11,10 @@ namespace ET.UI
     {
         private Transform hUDTransform = null;
 
-        private IPlayer _player;
-        private IPlayerCombat _playerCombat;
-        private IRecoverySkill _recoverySkill;
-        private ILevelSystem _levelSystem;
+        private IPlayer _player = null;
+        private IPlayerCombat _playerCombat = null;
+        private IRecoverySkill _recoverySkill = null;
+        private ILevelSystem _levelSystem = null;
 
         [SerializeField] private PlayerStatsView _playerStatsView;
         [SerializeField] private PlayerExperienceView _playerExperienceView;
@@ -26,14 +26,20 @@ namespace ET.UI
         protected void Awake()
         {
             hUDTransform = transform;
-
-            _player = GameManager.Instance.GetPlayer();
-            _playerCombat = _player.PlayerCombat;
-            _recoverySkill = _player.RecoverySkill;
-            _levelSystem = GameManager.Instance.GetLevelSystem();
         }
 
-        protected void Start()
+        public void Init(IPlayer player, ILevelSystem levelSystem)
+        {
+            _player = player;
+            _levelSystem = levelSystem;
+
+            _playerCombat = _player.PlayerCombat;
+            _recoverySkill = _player.PlayerSkills.RecoverySkill;
+
+            Subscribe();
+        }
+
+        private void Subscribe()
         {
             _player.onArmorViewChange += _playerStatsView.SetArmorView;
             _player.onHealthViewChange += _playerStatsView.SetHealthView;

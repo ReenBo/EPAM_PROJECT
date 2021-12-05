@@ -10,12 +10,16 @@ namespace ET.Interface
     {
         event Action<float, int> onArmorViewChange;
         event Action<float, int> onHealthViewChange;
-        event Action<WindowType> onPlayerDied;
+        event Action<WindowType> onOpenWindow;
+        event Action<WindowType> onCloseWindow;
 
         Transform PlayerPosition { get; }
+        InputSystem InputSystem { get; }
         PlayerCombatController PlayerCombat { get; }
         PlayerSkillsController PlayerSkills { get; }
-        RecoverySkill RecoverySkill { get; }
+
+        float CurrentHealth { get; set; }
+        float CurrentArmor { get; set; }
 
         Transform GetPosition();
         void SetPosition(Transform target);
