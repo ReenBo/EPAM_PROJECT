@@ -20,7 +20,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5292912279510162332
 Transform:
@@ -113,8 +113,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _typeTerminal: 0
+  _door: {fileID: 0}
   _activatingButton: {fileID: 5294551258858357867}
   _audioClipInteractionWithTerminal: {fileID: 8300000, guid: 77a0ec4f7167988459d7e7a7198dc4c7, type: 3}
+  _audioClipError: {fileID: 8300000, guid: 3ad7ac3b33868ee4e86d0a7c83f2930c, type: 3}
 --- !u!82 &1000010470422822
 AudioSource:
   m_ObjectHideFlags: 0
@@ -171,7 +173,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -241,7 +243,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!224 &5294551258828282539
 RectTransform:
@@ -340,7 +342,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 0
 --- !u!224 &5294551258858357866
 RectTransform:

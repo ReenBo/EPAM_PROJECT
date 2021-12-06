@@ -102,7 +102,7 @@ namespace ET.Weapons
             _muzzleFlashesLight.enabled = false;
         }
 
-        public void ReloadingWeapons()
+        public void ReloadingWeapon()
         {
             PlaySoundEffects(_reloadingAudio);
 

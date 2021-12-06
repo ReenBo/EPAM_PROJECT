@@ -28,12 +28,34 @@ namespace ET.Environment.Door
         public void Open()
         {
             _audioSource.PlayOneShot(_audioClipOpenDoor);
+            //OpeningDoors();
 
-            _leftDoor.transform.localPosition = _newPosleftDoor;
-            _rightDoor.transform.localPosition = _newPosRightDoor;
 
-            //_leftDoor.transform.localPosition = Vector3.Lerp(_leftDoor.transform.localPosition, _newPosleftDoor, 1);
-            //_rightDoor.transform.localPosition = Vector3.Lerp(_rightDoor.transform.localPosition, _newPosRightDoor, 1);
+            //_leftDoor.transform.position = _newPosleftDoor;
+            //_rightDoor.transform.position = _newPosRightDoor;
+
+            _leftDoor.transform.localPosition = Vector3.Lerp(_leftDoor.transform.localPosition, _newPosleftDoor, 1);
+            _rightDoor.transform.localPosition = Vector3.Lerp(_rightDoor.transform.localPosition, _newPosRightDoor, 1);
         }
+
+        //private void OpeningDoors()
+        //{
+        //    StartCoroutine(OpeningLeftDoor());
+        //}
+
+        //private IEnumerator OpeningLeftDoor()
+        //{
+        //    while (_newPosleftDoor.x < _leftDoor.transform.localPosition.x)
+        //    {
+        //        float num = _leftDoor.transform.localPosition.x;
+        //        num -= Time.fixedDeltaTime;
+        //        _newPosleftDoor.x = num;
+        //        Debug.Log(num);
+
+        //        _leftDoor.transform.localPosition = _newPosleftDoor;
+
+        //        yield return null;
+        //    }
+        //}
     }
 }
