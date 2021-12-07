@@ -7,8 +7,8 @@ namespace ET.SpecialTools
 {
     public class FlashCubeController : MonoBehaviour
     {
-        [SerializeField] private Light _pointLight = null;
-        [SerializeField] private Light _lightPulse = null;
+        [SerializeField] private Light _pointLight;
+        [SerializeField] private Light _lightPulse;
 
         private float _fullWorkingTime = 20f;
         private float _amountTick = 1e-4f;

@@ -2,16 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ET.Enemy;
-using ET.Player;
 using ET.Core.Stats;
 using ET.Core.SaveSystem;
-using ET.Weapons;
-using System;
-using ET.Player.Skills;
 using ET.Interface;
 using ET.Core;
 using ET.Structures;
-using ET.UI;
 using ET.Enums.EComponents;
 using ET.Enums.Views;
 
@@ -34,28 +29,20 @@ namespace ET
             }
         }
 
-        public IPlayer player = null;
-        public IPlayerCombat playerCombat = null;
-        public IMainCamera mainCamera = null;
-        public IEnemy enemy = null;
-        public IResoursManager resoursManager = null;
-        public ILevelSystem levelSystem = null;
-        public ICharacterStats characterStats = null;
-        public IUIRoot uIRoot = null;
-        public IHUD hUD = null;
-        public IPopups popups = null;
+        private IPlayer player;
+        private IMainCamera mainCamera;
+        private IEnemyManager _enemyManager;
+        private IResoursManager resoursManager;
+        private ILevelSystem levelSystem;
+        private ICharacterStats characterStats;
+        private IUIRoot uIRoot;
+        private IHUD hUD;
+        private IPopups popups;
 
         #region OLD
-        [Header("References to the Components")]
-        [SerializeField] private EnemyManager _enemyManager;
+        private CharacterStats _stats; // Need create
 
-        private PlayerController _playerController;
-        private LevelSystem _levelSystem;
-        private CharacterStats _stats;
-
-        public PlayerController PlayerController { get => _playerController; private set => _playerController = value; }
         public CharacterStats Stats { get => _stats; set => _stats = value; }
-        public EnemyManager EnemyManager { get => _enemyManager; }
         #endregion
 
         protected void Awake()
@@ -67,6 +54,7 @@ namespace ET
             uIRoot = GetUIRoot();
             levelSystem = GetLevelSystem();
             characterStats = GetCharacterStats();
+            _enemyManager = GetEnemyManager();
         }
 
         protected void Start()
@@ -81,7 +69,7 @@ namespace ET
             }
 
             mainCamera = null;
-            enemy = null;
+            _enemyManager = null;
             resoursManager = null;
             levelSystem = null;
             characterStats = null;
@@ -121,6 +109,18 @@ namespace ET
             }
 
             return mainCamera;
+        }
+
+        public IEnemyManager GetEnemyManager() // maybe static
+        {
+            if (_enemyManager is null)
+            {
+                resoursManager = GetResourseManager();
+
+                _enemyManager = resoursManager.CreateObjectInstance<IEnemyManager, EComponents>(EComponents.EnemyManager);
+            }
+
+            return _enemyManager;
         }
 
         public ILevelSystem GetLevelSystem() // maybe static
@@ -192,35 +192,32 @@ namespace ET
             Debug.Log("Susses StartSession()");
         }
 
-        public IEnumerator InitGame(ISceneInformation info)
+        public void InitGame(ISceneInformation info)
         {
             player.SetPosition(info.PlayerSpawnTarget);
+            var playerPosition = player.GetPosition();
 
-            mainCamera.GetPlayerPosition(player.GetPosition());
+            mainCamera.GetPlayerPosition(playerPosition);
 
             uIRoot.Init(player, levelSystem);
 
-            //_enemyManager = Instantiate(_enemyManagerPrefab).GetComponent<EnemyManager>();
-            //EnemyManager.GetPlayerPosition(_playerPosition);
-
-            yield return null;
+            _enemyManager.Init(playerPosition, info.EnemySpawnTarget);
         }
 
         public void SaveStats()
         {
-            SaveSystem.SaveGame(_playerController, _levelSystem);
+            SaveSystem.SaveGame(player, levelSystem);
         }
 
         public void UploadSave()
         {
             CharacterStats stats = SaveSystem.LoadGame();
 
-            _playerController.CurrentHealth = stats.Health;
-            _playerController.CurrentArmor = stats.Armor;
-            //_weaponsController.AmmoCounter = stats.AmountCartridges;
+            player.CurrentHealth = stats.Health;
+            player.CurrentArmor = stats.Armor;
 
-            _levelSystem.CurrentLevel = stats.Level;
-            _levelSystem.CurrentExperience = stats.Experience;
+            levelSystem.CurrentLevel = stats.Level;
+            levelSystem.CurrentExperience = stats.Experience;
 
             Vector3 position;
             position.x = stats.PositionPlayer[0];

@@ -1,16 +1,14 @@
 using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using ET;
-using ET.Player;
 using ET.Core.Stats;
-using ET.Weapons;
+using ET.Interface;
 
 namespace ET.Core.SaveSystem
 {
     public static class SaveSystem
     {
-        public static void SaveGame(PlayerController player, LevelSystem progress)
+        public static void SaveGame(IPlayer player, ILevelSystem progress)
         {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
 

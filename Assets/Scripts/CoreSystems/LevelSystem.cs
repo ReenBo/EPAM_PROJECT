@@ -10,11 +10,11 @@ namespace ET.Core
     public class LevelSystem : ILevelSystem
     {
         private int _currentLevel = 1;
-        private float _currentExperience = 0;
+        private float _currentExperience = 0f;
 
         private int _levelUp = 1;
 
-        private float _amountOfExperienceToLevelUp = 100;
+        private float _amountOfExperienceToLevelUp = 100f;
         private readonly float _levelConversionModifier = 0.2f;
 
         private int _minExperience = 0;
@@ -47,7 +47,7 @@ namespace ET.Core
         {
             _currentExperience += experience;
 
-            _maxExperience = (int)_amountOfExperienceToLevelUp; //
+            _maxExperience = (int)_amountOfExperienceToLevelUp;
 
             if (_currentExperience >= _maxExperience)
             {

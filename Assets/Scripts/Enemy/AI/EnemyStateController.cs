@@ -132,9 +132,9 @@ namespace ET.Enemy.AI
             while (CurrentState == AI_ENEMY_STATE.CHASE)
             {
                 Vector3 direction = _playerTransform.position - transform.position;
-                Quaternion NewRotantion = Quaternion.LookRotation(direction);
+                Quaternion newRotantion = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.RotateTowards(
-                    transform.rotation, NewRotantion, _rotateSpeed * Time.deltaTime);
+                    transform.rotation, newRotantion, _rotateSpeed * Time.deltaTime);
 
                 _navMeshAgent.SetDestination(_playerTransform.position);
 

@@ -12,7 +12,5 @@ namespace ET.Interface
         IHUD GetHUD();
         IPopups GetPopups();
         void StartSession();
-        IEnumerator InitGame(ISceneInformation info);
-
     }
 }

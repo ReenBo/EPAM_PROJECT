@@ -1,5 +1,4 @@
 using ET.Interface;
-using ET.Player;
 using ET.Player.UI.ExperienceView;
 using ET.Player.UI.StatsView;
 using ET.UI.SkillsView;
@@ -9,12 +8,12 @@ namespace ET.UI
 {
     public class HUD : MonoBehaviour, IHUD
     {
-        private Transform hUDTransform = null;
+        private Transform hUDTransform;
 
-        private IPlayer _player = null;
-        private IPlayerCombat _playerCombat = null;
-        private IRecoverySkill _recoverySkill = null;
-        private ILevelSystem _levelSystem = null;
+        private IPlayer _player;
+        private IPlayerCombat _playerCombat;
+        private IRecoverySkill _recoverySkill;
+        private ILevelSystem _levelSystem;
 
         [SerializeField] private PlayerStatsView _playerStatsView;
         [SerializeField] private PlayerExperienceView _playerExperienceView;

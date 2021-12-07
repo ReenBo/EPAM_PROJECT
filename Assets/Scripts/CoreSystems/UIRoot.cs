@@ -12,23 +12,6 @@ namespace ET.UI
 {
     public class UIRoot : MonoBehaviour, IUIRoot
     {
-        #region Singleton
-        //private static UIRoot _instance = null;
-
-        //public static UIRoot Instance
-        //{
-        //    get
-        //    {
-        //        if (_instance == null)
-        //        {
-        //            Debug.LogError("UIRoot is NULL");
-        //        }
-
-        //        return _instance;
-        //    }
-        //}
-        #endregion
-
         private bool _isVisible = false;
 
         private IPlayer _player = null;

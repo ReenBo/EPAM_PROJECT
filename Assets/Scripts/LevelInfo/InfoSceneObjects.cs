@@ -22,5 +22,6 @@ namespace ET.Core.LevelInfo
         public SceneIndex LevelIndex { get => _levelIndex; }
 
         public Transform PlayerSpawnTarget { get => _playerSpawnTarget; }
+        public Transform[] EnemySpawnTarget { get => _enemySpawnTarget; }
     }
 }

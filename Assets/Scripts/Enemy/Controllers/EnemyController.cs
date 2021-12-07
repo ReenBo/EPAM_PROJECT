@@ -11,9 +11,11 @@ namespace ET.Enemy
     public class EnemyController : MonoBehaviour, IEnemy, IDamageable
     {
         #region Variables
-        private EnemyStateController _enemyState = null;
-        private EnemyAttacksController[] _enemyAttacksController = null;
-        private AudioSource _audioSource = null;
+        private EnemyStateController _enemyState;
+        private EnemyAttacksController[] _enemyAttacksController;
+        private AudioSource _audioSource;
+
+        private ILevelSystem _levelSystem;
 
         [Header("Parameters Object")]
         [Range(0, 100)]
@@ -49,6 +51,9 @@ namespace ET.Enemy
             {
                 item.DamageArm = _amountDamage;
             }
+
+            _levelSystem = GameManager.Instance.GetLevelSystem();
+            _levelSystem.Subscribe(this);
         }
 
         public void Damage(float count)

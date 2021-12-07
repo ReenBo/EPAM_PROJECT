@@ -108,15 +108,15 @@ namespace ET.Player
                     PlayAnimation(i, _changingWeapon);
                     DisableWeapons();
 
-                    var clickButton = i - 1;
+                    var buttonNumber = i - 1;
 
-                    EnableWeapon(clickButton);
-                    _currentWeapon = _weaponsList[clickButton].GetComponent<WeaponsController>();
+                    EnableWeapon(buttonNumber);
+                    _currentWeapon = _weaponsList[buttonNumber].GetComponent<WeaponsController>();
 
                     _timeDelay = _currentWeapon.TimeDelay;
 
                     onPlayerStatsViewChange.Invoke(_currentWeapon.NumberRoundsInMagazine, _currentWeapon.AmmoCounter);
-                    onWeaponViewChange.Invoke(_currentWeapon.TimeDelay, _currentWeapon.WeaponType.ToString(), clickButton);
+                    onWeaponViewChange.Invoke(_currentWeapon.TimeDelay, _currentWeapon.WeaponType.ToString(), buttonNumber);
                 }
             }
         }

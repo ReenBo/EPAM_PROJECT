@@ -40,27 +40,8 @@ namespace ET
         protected void Start()
         {
             SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString(), LoadSceneMode.Additive);
+
             mainMenu.Show();
-        }
-
-        private IResoursManager GetResourseManager()
-        {
-            if (_resoursManager is null)
-            {
-                _resoursManager = new ResoursesManager();
-            }
-
-            return _resoursManager;
-        }
-
-        private IScenesManager GetScenesManager()
-        {
-            if (scenesManager is null)
-            {
-                scenesManager = new ScenesManager(this);
-            }
-
-            return scenesManager;
         }
 
         private ILoadingScreen GetLoadingScreen()
@@ -71,11 +52,6 @@ namespace ET
             }
 
             return loadingScreen;
-        }
-
-        public IPreloader GetPreloader()
-        {
-            return this;
         }
 
         public void UploadScene(SceneIndex scene)
@@ -112,7 +88,7 @@ namespace ET
 
             scenesManager.UpdateAfterLaunch(infoSceneObjects.LevelIndex);
 
-            yield return GameManager.Instance.InitGame(infoSceneObjects);
+            GameManager.Instance.InitGame(infoSceneObjects);
 
             //bootScreen.Hide(); 
 
@@ -120,8 +96,6 @@ namespace ET
             {
                 GameManager.Instance.StartSession();
             }
-
-            yield break;
         }
     }
 }
