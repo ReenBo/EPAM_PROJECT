@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 230503115}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 30}
+  m_LocalPosition: {x: 70, y: 0, z: 60}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 510444888}
@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 491850955}
   m_Layer: 0
-  m_Name: SpawnTargetMorgue (1)
+  m_Name: SpawnTargetMorgue_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +57,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 491850954}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 80, y: 0, z: 30}
+  m_LocalPosition: {x: 10, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 230503116}
@@ -87,7 +87,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 510444887}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 80, y: 0, z: 40}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 230503116}
@@ -225,7 +225,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2093396469}
   m_Layer: 0
-  m_Name: SpawnTargetMorgue (2)
+  m_Name: SpawnTargetMorgue_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -239,7 +239,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2093396468}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 70, y: 0, z: 40}
+  m_LocalPosition: {x: 10, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 230503116}
@@ -296,12 +296,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelIndex: 3
   _playerSpawnTarget: {fileID: 8992312484628381199}
-  _enemySpawnTarget:
+  _enemySpawnTargets:
   - {fileID: 541273807}
   - {fileID: 1226281422}
   - {fileID: 510444888}
-  - {fileID: 491850955}
-  - {fileID: 2093396469}
   _levelStructure: {fileID: 8992312484914584856}
 --- !u!82 &8992312484387954325
 AudioSource:
@@ -452,6 +450,38 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3616947938242136704, guid: bc575d6aabfadc84a8058d3e0b323242, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 3616947938320684677, guid: bc575d6aabfadc84a8058d3e0b323242, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 3616947938676553870, guid: bc575d6aabfadc84a8058d3e0b323242, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 3616947938729275034, guid: bc575d6aabfadc84a8058d3e0b323242, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 3616947938940727967, guid: bc575d6aabfadc84a8058d3e0b323242, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 3616947939130121364, guid: bc575d6aabfadc84a8058d3e0b323242, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 3616947939440245074, guid: bc575d6aabfadc84a8058d3e0b323242, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 3616947939892632904, guid: bc575d6aabfadc84a8058d3e0b323242, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 8769492561257611616, guid: bc575d6aabfadc84a8058d3e0b323242, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -500,9 +530,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelStructure_#1
       objectReference: {fileID: 0}
+    - target: {fileID: 8769492561950394475, guid: bc575d6aabfadc84a8058d3e0b323242, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769492562110049709, guid: bc575d6aabfadc84a8058d3e0b323242, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 8769492562663831789, guid: bc575d6aabfadc84a8058d3e0b323242, type: 3}
       propertyPath: m_Camera
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769492562911094716, guid: bc575d6aabfadc84a8058d3e0b323242, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769492563100990393, guid: bc575d6aabfadc84a8058d3e0b323242, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8770057578912663775, guid: bc575d6aabfadc84a8058d3e0b323242, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc575d6aabfadc84a8058d3e0b323242, type: 3}

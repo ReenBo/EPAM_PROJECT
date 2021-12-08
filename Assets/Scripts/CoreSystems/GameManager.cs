@@ -192,16 +192,16 @@ namespace ET
             Debug.Log("Susses StartSession()");
         }
 
-        public void InitGame(ISceneInformation info)
+        public void InitGame(IScenesManager scenesManager, ISceneInformation info)
         {
             player.SetPosition(info.PlayerSpawnTarget);
             var playerPosition = player.GetPosition();
 
             mainCamera.GetPlayerPosition(playerPosition);
 
-            uIRoot.Init(player, levelSystem);
+            uIRoot.Init(player, levelSystem, scenesManager);
 
-            _enemyManager.Init(playerPosition, info.EnemySpawnTarget);
+            _enemyManager.Init(playerPosition, info.EnemySpawnTargets);
         }
 
         public void SaveStats()

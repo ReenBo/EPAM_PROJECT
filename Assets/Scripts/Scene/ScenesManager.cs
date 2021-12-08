@@ -19,12 +19,21 @@ namespace ET.Core
         public void UpdateAfterLaunch(SceneIndex index)
         {
             _currentLevel = index;
-            Debug.Log("_currentLevel" + _currentLevel);
         }
 
         public void StartGame()
         {
             _preloader.UploadScene(SceneIndex._Level_1);
+        }
+
+        public void SaveGame()
+        {
+
+        }
+
+        public void LoadGame()
+        {
+
         }
 
         public void Restart()
@@ -34,7 +43,8 @@ namespace ET.Core
 
         public void ReturnMainMenu()
         {
-            SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString());
+            _preloader.LoadMainMenu();
+            //SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString());
         }
 
         public void ExitGame()

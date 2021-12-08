@@ -13,10 +13,14 @@ namespace ET.UI
     {
         private IPreloader _preloader = null;
 
+        private Transform _mainMenuTrans;
+
         [SerializeField] private Button _playGame;
         [SerializeField] private Button _load;
         [SerializeField] private Button _settings;
         [SerializeField] private Button _exitGame;
+
+        public Transform MainMenuTrans { get => _mainMenuTrans; }
 
         //public event Action OnPlayGameClicked;
         //public event Action OnLoadGameClicked;
@@ -25,6 +29,8 @@ namespace ET.UI
 
         protected void Awake()
         {
+            _mainMenuTrans = transform;
+
             _playGame.onClick.AddListener(StartGame);
             _load.onClick.AddListener(LoadingGame);
             _settings.onClick.AddListener(SettingsGame);

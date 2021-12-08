@@ -9,6 +9,8 @@ namespace ET.UI
 {
     public class Popups : MonoBehaviour, IPopups
     {
+        private IScenesManager _scenesManager;
+
         private Transform _popupsTransform = null;
 
         [SerializeField] private PauseMenuWindow _pauseMenuWindow;
@@ -28,6 +30,35 @@ namespace ET.UI
                 { WindowType.PAUSE_MENU, _pauseMenuWindow },
                 { WindowType.GAME_OVER, _gameOverWindow },
             };
+        }
+
+        public void Init(IScenesManager scenesManager)
+        {
+            _scenesManager = scenesManager;
+
+            Subscribe();
+        }
+
+        private void Subscribe()
+        {
+            _pauseMenuWindow.onGameHasBeenSaved += _scenesManager.SaveGame;
+            _pauseMenuWindow.onGameHasRestarted += _scenesManager.Restart;
+            _pauseMenuWindow.onOutOfGame += _scenesManager.ReturnMainMenu;
+
+            _gameOverWindow.onGameHasBeenLoaded += _scenesManager.LoadGame;
+            _gameOverWindow.onGameRestarted += _scenesManager.Restart;
+            _gameOverWindow.onOutOfMainMenu += _scenesManager.ReturnMainMenu;
+        }
+
+        protected void OnDestroy()
+        {
+            _pauseMenuWindow.onGameHasBeenSaved -= _scenesManager.SaveGame;
+            _pauseMenuWindow.onGameHasRestarted -= _scenesManager.Restart;
+            _pauseMenuWindow.onOutOfGame -= _scenesManager.ReturnMainMenu;
+
+            _gameOverWindow.onGameHasBeenLoaded -= _scenesManager.LoadGame;
+            _gameOverWindow.onGameRestarted -= _scenesManager.Restart;
+            _gameOverWindow.onOutOfMainMenu -= _scenesManager.ReturnMainMenu;
         }
     }
 }

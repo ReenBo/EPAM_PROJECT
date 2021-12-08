@@ -14,9 +14,11 @@ namespace ET.UI
     {
         private bool _isVisible = false;
 
-        private IPlayer _player = null;
-        private IPopups _popups = null;
-        private IHUD _hUD = null;
+        private IPlayer _player;
+        private IPopups _popups;
+        private IHUD _hUD;
+
+        private IScenesManager _scenesManager;
 
         protected void Awake()
         {
@@ -32,10 +34,12 @@ namespace ET.UI
             _hUD.Show();
         }
 
-        public void Init(IPlayer player, ILevelSystem levelSystem)
+        public void Init(IPlayer player, ILevelSystem levelSystem, IScenesManager scenesManager)
         {
             _player = player;
+            _scenesManager = scenesManager;
 
+            _popups.Init(scenesManager);
             _hUD.Init(_player, levelSystem);
 
             _player.onOpenWindow += OpenWindow;

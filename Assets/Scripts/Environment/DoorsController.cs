@@ -28,7 +28,7 @@ namespace ET.Environment.Door
         public void Open()
         {
             _audioSource.PlayOneShot(_audioClipOpenDoor);
-            //OpeningDoors();
+            //StartCoroutine(OpeningLeftDoor());
 
 
             //_leftDoor.transform.position = _newPosleftDoor;

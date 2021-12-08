@@ -92,6 +92,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b0b4f27080947543b5ecc5f5cc7ed05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _saveGame: {fileID: 6279370579123330575}
+  _restart: {fileID: 6279370579887799208}
+  _exitGame: {fileID: 6279370580243194542}
 --- !u!1 &6279370578759529713
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +187,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8d73f4947dc17945acf7de053883889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _saveGame: {fileID: 6279370579877381477}
+  _restart: {fileID: 6279370579466027049}
+  _exitGame: {fileID: 6279370580455118391}
 --- !u!1 &6279370579123330673
 GameObject:
   m_ObjectHideFlags: 0

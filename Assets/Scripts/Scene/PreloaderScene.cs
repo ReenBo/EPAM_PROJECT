@@ -16,23 +16,23 @@ namespace ET
 {
     public class PreloaderScene : MonoBehaviour, IPreloader
     {
-        private ILoadingScreen loadingScreen = null;
-        public IResoursManager _resoursManager = null;
-        public IScenesManager scenesManager = null;
-        public IMainMenu mainMenu = null;
+        private ILoadingScreen _loadingScreen;
+        private IResoursManager _resoursManager;
+        private IScenesManager _scenesManager;
+        private IMainMenu _mainMenu;
 
         private AsyncOperation _loading = null;
 
         protected void Awake()
         {
             _resoursManager = new ResoursesManager();
-            scenesManager = new ScenesManager(this);
+            _scenesManager = new ScenesManager(this);
 
             gameObject.AddComponent<EventSystem>();
             gameObject.AddComponent<StandaloneInputModule>();
 
-            mainMenu = _resoursManager.CreateObjectInstance<IMainMenu, EView>(EView.MainMenu);
-            mainMenu.Init(this);
+            _mainMenu = GetMainMenu();
+            _mainMenu.Init(this);
 
             DontDestroyOnLoad(gameObject);
         }
@@ -41,21 +41,41 @@ namespace ET
         {
             SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString(), LoadSceneMode.Additive);
 
-            mainMenu.Show();
+            _mainMenu.Show();
+
+            DontDestroyOnLoad(_mainMenu.MainMenuTrans);
+        }
+
+        private IMainMenu GetMainMenu()
+        {
+            if (_mainMenu is null)
+            {
+                _mainMenu = _resoursManager.CreateObjectInstance<IMainMenu, EView>(EView.MainMenu);
+            }
+
+            return _mainMenu;
         }
 
         private ILoadingScreen GetLoadingScreen()
         {
-            if (loadingScreen is null)
+            if (_loadingScreen is null)
             {
-                loadingScreen = _resoursManager.CreateObjectInstance<ILoadingScreen, EView>(EView.LoadingScreen);
+                _loadingScreen = _resoursManager.CreateObjectInstance<ILoadingScreen, EView>(EView.LoadingScreen);
             }
 
-            return loadingScreen;
+            return _loadingScreen;
+        }
+
+        public void LoadMainMenu()
+        {
+            SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString());
+            _mainMenu.Show();
         }
 
         public void UploadScene(SceneIndex scene)
         {
+            _mainMenu.Hide();
+
             StartCoroutine(AsyncLoading(scene));
         }
 
@@ -86,9 +106,9 @@ namespace ET
 
             yield return null;
 
-            scenesManager.UpdateAfterLaunch(infoSceneObjects.LevelIndex);
+            _scenesManager.UpdateAfterLaunch(infoSceneObjects.LevelIndex);
 
-            GameManager.Instance.InitGame(infoSceneObjects);
+            GameManager.Instance.InitGame(_scenesManager, infoSceneObjects);
 
             //bootScreen.Hide(); 
 
