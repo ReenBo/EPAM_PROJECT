@@ -21,35 +21,67 @@ namespace ET
         private IScenesManager _scenesManager;
         private IMainMenu _mainMenu;
 
+        [SerializeField] private Camera _camera;
+
         private AsyncOperation _loading = null;
 
         protected void Awake()
         {
-            _resoursManager = new ResoursesManager();
-            _scenesManager = new ScenesManager(this);
+            _resoursManager = GetResoursManager();
+            _scenesManager = GetScenesManager();
 
             gameObject.AddComponent<EventSystem>();
             gameObject.AddComponent<StandaloneInputModule>();
 
+            Instantiate(_camera);
             _mainMenu = GetMainMenu();
-            _mainMenu.Init(this);
+            _mainMenu.Init(_scenesManager);
 
             DontDestroyOnLoad(gameObject);
         }
 
         protected void Start()
         {
-            SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString(), LoadSceneMode.Additive);
-
             _mainMenu.Show();
 
-            DontDestroyOnLoad(_mainMenu.MainMenuTrans);
+            _scenesManager.OnGameStarts += UploadScene;
+            _scenesManager.OnGameIsBeingRestarted += UploadScene;
+            _scenesManager.OnReturnsToMenu += LoadMainMenu;
+        }
+
+        protected void OnDestroy()
+        {
+            _scenesManager.OnGameStarts -= UploadScene;
+            _scenesManager.OnGameIsBeingRestarted -= UploadScene;
+            _scenesManager.OnReturnsToMenu -= LoadMainMenu;
+        }
+
+        private IResoursManager GetResoursManager()
+        {
+            if (_resoursManager is null)
+            {
+                _resoursManager = new ResoursesManager();
+            }
+
+            return _resoursManager;
+        }
+
+        private IScenesManager GetScenesManager()
+        {
+            if (_scenesManager is null)
+            {
+                _scenesManager = new ScenesManager(this);
+            }
+
+            return _scenesManager;
         }
 
         private IMainMenu GetMainMenu()
         {
             if (_mainMenu is null)
             {
+                _resoursManager = GetResoursManager();
+
                 _mainMenu = _resoursManager.CreateObjectInstance<IMainMenu, EView>(EView.MainMenu);
             }
 
@@ -60,6 +92,8 @@ namespace ET
         {
             if (_loadingScreen is null)
             {
+                _resoursManager = GetResoursManager();
+
                 _loadingScreen = _resoursManager.CreateObjectInstance<ILoadingScreen, EView>(EView.LoadingScreen);
             }
 
@@ -68,24 +102,22 @@ namespace ET
 
         public void LoadMainMenu()
         {
-            SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString());
-            _mainMenu.Show();
+            _loading = SceneManager.LoadSceneAsync(SceneIndex._PreLevel.ToString());
+            Destroy(gameObject);
         }
 
         public void UploadScene(SceneIndex scene)
         {
-            _mainMenu.Hide();
-
             StartCoroutine(AsyncLoading(scene));
         }
 
         private IEnumerator AsyncLoading(SceneIndex scene)
         {
             var bootScreen = GetLoadingScreen();
-
             bootScreen.Show();
-            
+
             _loading = SceneManager.LoadSceneAsync(SceneIndex._GameSession.ToString());
+
             _loading.allowSceneActivation = false;
 
             while (!_loading.isDone)

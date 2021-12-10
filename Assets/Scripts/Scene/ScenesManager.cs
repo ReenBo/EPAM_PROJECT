@@ -8,12 +8,26 @@ namespace ET.Core
 {
     public class ScenesManager : IScenesManager
     {
-        private IPreloader _preloader = null;
+        private IPreloader _preloader;
+        private ISaveSystem _saveSystem;
         private SceneIndex _currentLevel = 0;
+
+        public event Action<SceneIndex> OnGameStarts;
+        public event Action OnGameProgressIsSaved;
+        public event Action OnGameProgressIsBeingLoaded;
+        public event Action OnSettingsGame;
+        public event Action<SceneIndex> OnGameIsBeingRestarted;
+        public event Action OnReturnsToMenu;
 
         public ScenesManager(IPreloader preloader)
         {
             _preloader = preloader;
+        }
+
+        public void Init(ISaveSystem saveSystem)
+        {
+            _saveSystem = saveSystem;
+            Debug.Log(_saveSystem);
         }
 
         public void UpdateAfterLaunch(SceneIndex index)
@@ -23,28 +37,35 @@ namespace ET.Core
 
         public void StartGame()
         {
-            _preloader.UploadScene(SceneIndex._Level_1);
+            OnGameStarts.Invoke(SceneIndex._Level_1);
+            //_preloader.UploadScene(SceneIndex._Level_1);
         }
 
         public void SaveGame()
         {
-
+            OnGameProgressIsSaved.Invoke();
         }
 
         public void LoadGame()
         {
+            OnGameProgressIsBeingLoaded.Invoke();
+        }
 
+        public void SettingsGame()
+        {
+            OnSettingsGame.Invoke();
         }
 
         public void Restart()
         {
-            _preloader.UploadScene(_currentLevel);
+            OnGameIsBeingRestarted.Invoke(_currentLevel);
+            //_preloader.UploadScene(_currentLevel);
         }
 
         public void ReturnMainMenu()
         {
-            _preloader.LoadMainMenu();
-            //SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString());
+            OnReturnsToMenu.Invoke();
+            //_preloader.LoadMainMenu();
         }
 
         public void ExitGame()

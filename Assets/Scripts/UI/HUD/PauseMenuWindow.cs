@@ -46,5 +46,10 @@ namespace ET.UI
                 _isPaused = false;
             }
         }
+
+        protected void OnDestroy()
+        {
+            Time.timeScale = 1f;
+        }
     }
 }

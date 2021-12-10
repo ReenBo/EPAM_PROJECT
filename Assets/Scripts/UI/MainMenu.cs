@@ -6,12 +6,13 @@ using ET.Enums.Views;
 using ET.Enums.Scenes;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
 namespace ET.UI
 {
     public class MainMenu : MonoBehaviour, IMainMenu
     {
-        private IPreloader _preloader = null;
+        private IScenesManager _scenesManager;
 
         private Transform _mainMenuTrans;
 
@@ -31,25 +32,30 @@ namespace ET.UI
         {
             _mainMenuTrans = transform;
 
+            //_playGame.onClick.AddListener(OnPlayGameClicked.Invoke);
+            //_load.onClick.AddListener(OnLoadGameClicked.Invoke);
+            //_settings.onClick.AddListener(OnSettingsClicked.Invoke);
+            //_exitGame.onClick.AddListener(OnExitGameClicked.Invoke);
+
             _playGame.onClick.AddListener(StartGame);
             _load.onClick.AddListener(LoadingGame);
             _settings.onClick.AddListener(SettingsGame);
             _exitGame.onClick.AddListener(ExitGame);
         }
 
-        public void Init(IPreloader preloader)
+        public void Init(IScenesManager scenesManager)
         {
-            _preloader = preloader;
+            _scenesManager = scenesManager;
         }
 
-        private void StartGame()
+        public void StartGame()
         {
-            _preloader.UploadScene(SceneIndex._Level_1);
+            _scenesManager.StartGame();
         }
 
         private void LoadingGame()
         {
-
+            _scenesManager.LoadGame();
         }
 
         private void SettingsGame()

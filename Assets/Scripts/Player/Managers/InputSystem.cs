@@ -13,8 +13,7 @@ namespace ET.Player
 {
     public class InputSystem : MonoBehaviour
     {
-        private PlayerController _playerController = null;
-        private PlayerSkillsController _skillsController;
+        private PlayerController _playerController;
         private SpecialToolsController _specialToolsController;
         private InteractionWithItems _interactionWithItems;
 
@@ -23,7 +22,6 @@ namespace ET.Player
         protected void Awake()
         {
             _playerController = GetComponent<PlayerController>();
-            _skillsController = GetComponent<PlayerSkillsController>();
             _specialToolsController = GetComponent<SpecialToolsController>();
             _interactionWithItems = GetComponent<InteractionWithItems>();
 

@@ -5,10 +5,19 @@ namespace ET.Interface
 {
     public interface IScenesManager
     {
+        event Action<SceneIndex> OnGameStarts;
+        event Action OnGameProgressIsSaved;
+        event Action OnGameProgressIsBeingLoaded;
+        event Action OnSettingsGame;
+        event Action<SceneIndex> OnGameIsBeingRestarted;
+        event Action OnReturnsToMenu;
+
         void UpdateAfterLaunch(SceneIndex index);
+        void Init(ISaveSystem saveSystem);
         void StartGame();
-        public void SaveGame();
-        public void LoadGame();
+        void SaveGame();
+        void LoadGame();
+        void SettingsGame();
         void Restart();
         void ReturnMainMenu();
         void ExitGame();

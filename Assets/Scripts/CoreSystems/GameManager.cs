@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using ET.Enemy;
 using ET.Core.Stats;
-using ET.Core.SaveSystem;
 using ET.Interface;
 using ET.Core;
 using ET.Structures;
@@ -29,31 +28,26 @@ namespace ET
             }
         }
 
-        private IPlayer player;
-        private IMainCamera mainCamera;
+        private IPlayer _player;
+        private IMainCamera _mainCamera;
         private IEnemyManager _enemyManager;
-        private IResoursManager resoursManager;
-        private ILevelSystem levelSystem;
-        private ICharacterStats characterStats;
-        private IUIRoot uIRoot;
-        private IHUD hUD;
-        private IPopups popups;
+        private IResoursManager _resoursManager;
+        private ILevelSystem _levelSystem;
 
-        #region OLD
-        private CharacterStats _stats; // Need create
+        private IUIRoot _uIRoot;
+        private IHUD _hUD;
+        private IPopups _popups;
 
-        public CharacterStats Stats { get => _stats; set => _stats = value; }
-        #endregion
+        private ISaveSystem _saveSystem;
 
         protected void Awake()
         {
             _instance = this;
 
-            mainCamera = GetMainCamera();
-            player = GetPlayer();
-            uIRoot = GetUIRoot();
-            levelSystem = GetLevelSystem();
-            characterStats = GetCharacterStats();
+            _mainCamera = GetMainCamera();
+            _player = GetPlayer();
+            _uIRoot = GetUIRoot();
+            _levelSystem = GetLevelSystem();
             _enemyManager = GetEnemyManager();
         }
 
@@ -68,56 +62,55 @@ namespace ET
                 _instance = null;
             }
 
-            mainCamera = null;
+            _mainCamera = null;
             _enemyManager = null;
-            resoursManager = null;
-            levelSystem = null;
-            characterStats = null;
-            uIRoot = null;
-            player = null;
+            _resoursManager = null;
+            _levelSystem = null;
+            _uIRoot = null;
+            _player = null;
         }
 
         public IResoursManager GetResourseManager() // maybe static
         {
-            if (resoursManager is null)
+            if (_resoursManager is null)
             {
-                resoursManager = new ResoursesManager();
+                _resoursManager = new ResoursesManager();
             }
 
-            return resoursManager;
+            return _resoursManager;
         }
 
         public IPlayer GetPlayer() // maybe static
         {
-            if (player is null)
+            if (_player is null)
             {
-                resoursManager = GetResourseManager();
+                _resoursManager = GetResourseManager();
 
-                player = resoursManager.CreateObjectInstance<IPlayer, EComponents>(EComponents.Player);
+                _player = _resoursManager.CreateObjectInstance<IPlayer, EComponents>(EComponents.Player);
             }
 
-            return player;
+            return _player;
         }
 
         public IMainCamera GetMainCamera() // maybe static
         {
-            if (mainCamera is null)
+            if (_mainCamera is null)
             {
-                resoursManager = GetResourseManager();
+                _resoursManager = GetResourseManager();
 
-                mainCamera = resoursManager.CreateObjectInstance<IMainCamera, EComponents>(EComponents.MainCamera);
+                _mainCamera = _resoursManager.CreateObjectInstance<IMainCamera, EComponents>(EComponents.MainCamera);
             }
 
-            return mainCamera;
+            return _mainCamera;
         }
 
         public IEnemyManager GetEnemyManager() // maybe static
         {
             if (_enemyManager is null)
             {
-                resoursManager = GetResourseManager();
+                _resoursManager = GetResourseManager();
 
-                _enemyManager = resoursManager.CreateObjectInstance<IEnemyManager, EComponents>(EComponents.EnemyManager);
+                _enemyManager = _resoursManager.CreateObjectInstance<IEnemyManager, EComponents>(EComponents.EnemyManager);
             }
 
             return _enemyManager;
@@ -125,9 +118,9 @@ namespace ET
 
         public ILevelSystem GetLevelSystem() // maybe static
         {
-            if (levelSystem is null)
+            if (_levelSystem is null)
             {
-                levelSystem = new LevelSystem
+                _levelSystem = new LevelSystem
                     (
                     SLevelSystemData.currentLevel, 
                     SLevelSystemData.currentExperience, 
@@ -136,56 +129,56 @@ namespace ET
                     );
             }
 
-            return levelSystem;
-        }
-
-        public ICharacterStats GetCharacterStats() // maybe static
-        {
-            if (characterStats is null)
-            {
-                resoursManager = GetResourseManager();
-
-                characterStats = new CharacterStats(player, levelSystem);
-            }
-
-            return characterStats;
+            return _levelSystem;
         }
 
         public IUIRoot GetUIRoot() // maybe static
         {
-            if (uIRoot is null)
+            if (_uIRoot is null)
             {
-                resoursManager = GetResourseManager();
+                _resoursManager = GetResourseManager();
 
-                uIRoot = resoursManager.CreateObjectInstance<IUIRoot, EView>(EView.UIRoot);
+                _uIRoot = _resoursManager.CreateObjectInstance<IUIRoot, EView>(EView.UIRoot);
             }
 
-            return uIRoot;
+            return _uIRoot;
         }
 
         public IHUD GetHUD() // maybe static
         {
-            if (hUD is null)
+            if (_hUD is null)
             {
-                resoursManager = GetResourseManager();
+                _resoursManager = GetResourseManager();
 
-                hUD = resoursManager.CreateObjectInstance<IHUD, EView>(EView.HUD);
+                _hUD = _resoursManager.CreateObjectInstance<IHUD, EView>(EView.HUD);
             }
 
-            return hUD;
+            return _hUD;
         }
 
         public IPopups GetPopups() // maybe static
         {
-            if (popups is null)
+            if (_popups is null)
             {
-                resoursManager = GetResourseManager();
+                _resoursManager = GetResourseManager();
 
-                popups = resoursManager.CreateObjectInstance<IPopups, EView>(EView.Popups);
+                _popups = _resoursManager.CreateObjectInstance<IPopups, EView>(EView.Popups);
             }
 
-            return popups;
+            return _popups;
         }
+
+        //public ISaveSystem GetSaveSystem() // maybe static
+        //{
+        //    if (_saveSystem is null)
+        //    {
+        //        _resoursManager = GetResourseManager();
+
+        //        _saveSystem = new SaveSystem(_player, _levelSystem);
+        //    }
+
+        //    return _saveSystem;
+        //}
 
         public void StartSession()
         {
@@ -194,40 +187,16 @@ namespace ET
 
         public void InitGame(IScenesManager scenesManager, ISceneInformation info)
         {
-            player.SetPosition(info.PlayerSpawnTarget);
-            var playerPosition = player.GetPosition();
+            _player.SetPosition(info.PlayerSpawnTarget);
+            var playerPosition = _player.GetPosition();
 
-            mainCamera.GetPlayerPosition(playerPosition);
+            _mainCamera.GetPlayerPosition(playerPosition);
 
-            uIRoot.Init(player, levelSystem, scenesManager);
+            _uIRoot.Init(_player, _levelSystem, scenesManager);
 
             _enemyManager.Init(playerPosition, info.EnemySpawnTargets);
-        }
 
-        public void SaveStats()
-        {
-            SaveSystem.SaveGame(player, levelSystem);
-        }
-
-        public void UploadSave()
-        {
-            CharacterStats stats = SaveSystem.LoadGame();
-
-            player.CurrentHealth = stats.Health;
-            player.CurrentArmor = stats.Armor;
-
-            levelSystem.CurrentLevel = stats.Level;
-            levelSystem.CurrentExperience = stats.Experience;
-
-            Vector3 position;
-            position.x = stats.PositionPlayer[0];
-            position.y = stats.PositionPlayer[1];
-            position.z = stats.PositionPlayer[2];
-
-            Transform transform = null;
-            transform.position = position;
-
-            player.SetPosition(transform);
+            _saveSystem = new SaveSystem(_player, _levelSystem, scenesManager);
         }
     }
 }

@@ -18,8 +18,6 @@ namespace ET.UI
         private IPopups _popups;
         private IHUD _hUD;
 
-        private IScenesManager _scenesManager;
-
         protected void Awake()
         {
             _popups = GameManager.Instance.GetPopups();
@@ -37,7 +35,6 @@ namespace ET.UI
         public void Init(IPlayer player, ILevelSystem levelSystem, IScenesManager scenesManager)
         {
             _player = player;
-            _scenesManager = scenesManager;
 
             _popups.Init(scenesManager);
             _hUD.Init(_player, levelSystem);

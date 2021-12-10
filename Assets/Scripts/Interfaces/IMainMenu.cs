@@ -5,9 +5,14 @@ namespace ET.Interface
 {
     public interface IMainMenu : IUIScreenable
     {
+        //event Action OnPlayGameClicked;
+        //event Action OnLoadGameClicked;
+        //event Action OnSettingsClicked;
+        //event Action OnExitGameClicked;
+
         Transform MainMenuTrans { get; }
 
-        void Init(IPreloader preloader);
+        void Init(IScenesManager scenesManager);
     }
 }
 
