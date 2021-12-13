@@ -9,7 +9,7 @@ namespace ET.UI.SkillsView
 {
     public class PlayerSkillsView : MonoBehaviour
     {
-        private RecoverySkill _playerSkills = null;
+        private RecoverySkill _playerSkills;
 
         private Dictionary<int, Transform> _skillsPosition;
 

@@ -12,11 +12,9 @@ namespace ET.Player
         [SerializeField] private Transform _spawnTarget;
         [SerializeField] private Transform _target;
 
-        private GameObject _flashCube = null;
+        private GameObject _flashCube;
 
         private float multiplier = 2f;
-
-        //private float _theta = 0;
 
         public void ExecuteCommand()
         {
@@ -27,11 +25,6 @@ namespace ET.Player
             Vector3 dir = _target.position - _spawnTarget.position;
 
             rigidbody.AddForce(new Vector3(dir.x * multiplier, dir.y * 3f, dir.z * multiplier), ForceMode.Impulse);
-
-            //float radians = Time.time * Mathf.PI;
-            //Debug.Log(radians);
-            //_theta = Mathf.Round(radians* Mathf.Rad2Deg) % 360;
-            //Debug.Log(_theta);
         }
     }
 }

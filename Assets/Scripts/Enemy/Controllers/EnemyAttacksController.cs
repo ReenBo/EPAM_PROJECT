@@ -8,7 +8,7 @@ namespace ET.Enemy
 {
     public class EnemyAttacksController : MonoBehaviour
     {
-        private Animator _animator = null;
+        private Animator _animator;
 
         private float _damageArm = 0f;
 

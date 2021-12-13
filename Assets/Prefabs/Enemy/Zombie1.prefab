@@ -1900,7 +1900,6 @@ MonoBehaviour:
   _ArmL: {fileID: 449596411}
   _deadAudio: {fileID: 8300000, guid: dd56af714fb8f014f9f94f6747df4dcb, type: 3}
   _hitAudio: {fileID: 8300000, guid: 5d1867f97277f3f4d9f947578224354d, type: 3}
-  _bloodFXPredab: {fileID: 8980603530060679387}
   _bloodFX: {fileID: 5714350238445260390}
 --- !u!114 &621590578559990233
 MonoBehaviour:
@@ -1919,6 +1918,7 @@ MonoBehaviour:
   _chaseTimeOut: 0
   _attackDelayTime: 0.2
   _rotateSpeed: 100
+  _allowableDistance: 8
   _idleAudio: {fileID: 8300000, guid: 10732d0c2b844ae4c9ce62eab3a4c9b3, type: 3}
   _attackAudio: {fileID: 8300000, guid: fc1882cb9cb0d474c95537bbdb4c48bd, type: 3}
   _chaseAudio: {fileID: 8300000, guid: e29d35a3561cf964e9c39f5b99c2696c, type: 3}

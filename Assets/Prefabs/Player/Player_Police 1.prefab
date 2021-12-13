@@ -3430,6 +3430,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6701964041721054414, guid: 9942afe3c35245d4ca6e213f71ac40c4, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8135684254792445426, guid: 9942afe3c35245d4ca6e213f71ac40c4, type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.353
@@ -3800,6 +3804,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5066728837980766527}
     m_Modifications:
+    - target: {fileID: 934209808771194929, guid: edcd63000f5739941936909ba6cecabd, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1726574856433140196, guid: edcd63000f5739941936909ba6cecabd, type: 3}
       propertyPath: m_Name
       value: FlashLight
@@ -3862,6 +3870,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5066728837980766527}
     m_Modifications:
+    - target: {fileID: 503086697678355678, guid: e863b0cc374cc5345999f7161710c2e7, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2177323888003632049, guid: e863b0cc374cc5345999f7161710c2e7, type: 3}
       propertyPath: m_RootOrder
       value: 10

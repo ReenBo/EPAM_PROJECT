@@ -11,7 +11,7 @@ namespace ET.UI
     {
         private IScenesManager _scenesManager;
 
-        private Transform _popupsTransform = null;
+        private Transform _popupsTransform;
 
         [SerializeField] private PauseMenuWindow _pauseMenuWindow;
         [SerializeField] private GameOverWindow _gameOverWindow;

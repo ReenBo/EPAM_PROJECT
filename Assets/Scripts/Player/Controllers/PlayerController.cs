@@ -12,14 +12,14 @@ namespace ET.Player
 {
     public class PlayerController : MonoBehaviour, IPlayer
     {
-        private Animator _animator = null;
-        private BoxCollider _boxCollider = null;
+        private Animator _animator;
+        private BoxCollider _boxCollider;
 
-        private PlayerCombatController _playerCombat = null;
-        private PlayerSkillsController _playerSkills = null;
-        private InputSystem _inputSystem = null;
-        private SpecialToolsController _specialTools = null;
-        private InteractionWithItems _interactionWithItems = null;
+        private PlayerCombatController _playerCombat;
+        private PlayerSkillsController _playerSkills;
+        private InputSystem _inputSystem;
+        private SpecialToolsController _specialTools;
+        private InteractionWithItems _interactionWithItems;
 
         [Header("Parameters Object")]
         [SerializeField] private Transform _playerPosition;

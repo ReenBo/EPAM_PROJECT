@@ -52,7 +52,7 @@ namespace ET.UI
                 else
                 {
                     Hide();
-                    //GameManager.Instance.SceneController.ReturnMainMenu();
+                    onOutOfMainMenu.Invoke();
                 }
                 yield return null;
             }

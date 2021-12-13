@@ -34,7 +34,6 @@ namespace ET.Enemy
         public event Action<int> OnExperienceEarned;
 
         private bool _isDeath = false;
-        //private bool _isResurrection = false;
         #endregion
 
         public float AmountHealth { get => _amountHealth; set => _amountHealth = Mathf.Clamp(value, 0f, 100f); }

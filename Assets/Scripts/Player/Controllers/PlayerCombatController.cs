@@ -10,9 +10,9 @@ namespace ET.Player
     public class PlayerCombatController : MonoBehaviour, IPlayerCombat
     {
         #region Variables
-        private Animator _animator = null;
+        private Animator _animator;
 
-        private WeaponsController _currentWeapon = null;
+        private WeaponsController _currentWeapon;
 
         [Header("List of weapons")]
         [SerializeField] private List<GameObject> _weaponsList;

@@ -15,6 +15,7 @@ namespace ET.Core.LevelInfo
 
         [Header("References to enemy objects in the scene")]
         [SerializeField] private Transform[] _enemySpawnTargets;
+        [SerializeField] private Transform _bossSpawnTarget;
 
         [Header("References to static level objects in the scene")]
         [SerializeField] private GameObject _levelStructure;
@@ -23,5 +24,6 @@ namespace ET.Core.LevelInfo
 
         public Transform PlayerSpawnTarget { get => _playerSpawnTarget; }
         public Transform[] EnemySpawnTargets { get => _enemySpawnTargets; }
+        public Transform BossSpawnTarget { get => _bossSpawnTarget; }
     }
 }

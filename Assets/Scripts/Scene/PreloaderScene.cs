@@ -23,7 +23,7 @@ namespace ET
 
         [SerializeField] private Camera _camera;
 
-        private AsyncOperation _loading = null;
+        private AsyncOperation _loading;
 
         protected void Awake()
         {

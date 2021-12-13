@@ -54,6 +54,7 @@ namespace ET.Core
             Debug.Log(path);
 
             FileStream stream = new FileStream(path, FileMode.Create);
+            Debug.Log(stream);
 
             CharacterStats stats = new CharacterStats(player, levelSystem);
 

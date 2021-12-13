@@ -20,7 +20,7 @@ namespace ET.Weapons
     public class WeaponsController : MonoBehaviour, IWeapon
     {
         #region Variables
-        private AudioSource _audioSource = null;
+        private AudioSource _audioSource;
 
         [SerializeField] private Transform _shootPoint;
         [SerializeField] private Transform _targetPos;

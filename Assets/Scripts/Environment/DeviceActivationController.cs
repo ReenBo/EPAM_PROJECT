@@ -57,7 +57,7 @@ namespace ET.Device
         {
             if (_isActivated)
             {
-                if (_typeTerminal != TypeTerminals.CORAL)
+                if (_typeTerminal != TypeTerminals.CYAN)
                 {
                     StartCoroutine(TurnOnTerminal());
                 }

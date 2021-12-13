@@ -194,7 +194,7 @@ namespace ET
 
             _uIRoot.Init(_player, _levelSystem, scenesManager);
 
-            _enemyManager.Init(playerPosition, info.EnemySpawnTargets);
+            _enemyManager.Init(playerPosition, info.EnemySpawnTargets, info.BossSpawnTarget);
 
             _saveSystem = new SaveSystem(_player, _levelSystem, scenesManager);
         }

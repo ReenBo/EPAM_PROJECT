@@ -7,7 +7,7 @@ namespace ET.Bullets
 {
     public class BulletsController : MonoBehaviour
     {
-        IDamageable damageable = null;
+        IDamageable damageable;
 
         [Header("Settings Bullet:")]
         [SerializeField] private float _speedBullet = 0f;

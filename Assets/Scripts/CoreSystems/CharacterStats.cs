@@ -1,8 +1,3 @@
-using System.Collections.Generic;
-using UnityEngine;
-using ET;
-using ET.Player;
-using ET.Weapons;
 using ET.Interface;
 
 namespace ET.Core.Stats

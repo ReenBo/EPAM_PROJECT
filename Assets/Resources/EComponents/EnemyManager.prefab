@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 4493914613880827488, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
-  _enemyStateController: {fileID: 621590578559990233, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}
+  _bossPrefab: {fileID: 1121005873601343849, guid: 941a49f34539c22469d1f19b1b1e77bc, type: 3}
 --- !u!1 &2571794910668482650
 GameObject:
   m_ObjectHideFlags: 0

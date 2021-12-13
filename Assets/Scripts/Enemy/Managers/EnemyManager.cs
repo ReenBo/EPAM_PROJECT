@@ -13,15 +13,15 @@ namespace ET.Enemy
         private Transform _playerPosition;
         private readonly List<GameObject> _listEnemies = new List<GameObject>();
         private Transform[] _spawnTargets;
+        private Transform _bossSpawnTarget;
 
         private int _amountOfEnemiesPerPoint = 12;
-        private Vector3 _startPoint = new Vector3();
-        private int _childCountParentHas = 0;
         private float _timer = 0f;
         private float _timeRespawn = 300f;
 
         [Header("Prefab Enemy")]
         [SerializeField] private GameObject _enemyPrefab;
+        [SerializeField] private GameObject _bossPrefab;
 
         protected void Start()
         {
@@ -30,11 +30,13 @@ namespace ET.Enemy
 
         private Transform[] _spawnTargetsOnLevel;
 
-        public void Init(Transform playerPosition, Transform[] spawnTargetsOnLevel)
+        public void Init(Transform playerPosition, Transform[] spawnTargetsOnLevel, Transform bossSpawnTarget)
         {
             _playerPosition = playerPosition;
             _spawnTargetsOnLevel = spawnTargetsOnLevel;
+            _bossSpawnTarget = bossSpawnTarget;
 
+            GenerateBoss();
             StartCoroutine(GenerateEnemies());
         }
 
@@ -56,14 +58,23 @@ namespace ET.Enemy
                     {
                         _spawnTargets[j] = startPoint;
 
-                        _listEnemies.Add(CreateEnemy(_spawnTargets[j]));
-
-                        _listEnemies[j].GetComponent<EnemyStateController>().GetPlayerPosition(_playerPosition);
+                        _listEnemies.Add(CreateEnemy(_enemyPrefab, _spawnTargets[j]));
 
                         startPoint.localPosition = result;
                     }
                 }
             }
+
+            foreach (var enemy in _listEnemies)
+            {
+                enemy.GetComponent<EnemyStateController>().GetPlayerPosition(_playerPosition);
+            }
+        }
+
+        private void GenerateBoss()
+        {
+            GameObject boss = CreateEnemy(_bossPrefab, _bossSpawnTarget);
+            boss.GetComponent<EnemyStateController>().GetPlayerPosition(_playerPosition);
         }
 
         //private void InitializeTargetsSpawn()
@@ -82,16 +93,16 @@ namespace ET.Enemy
         {
             for (int i = 0; i < _spawnTargets.Length; i++)
             {
-                _listEnemies.Add(CreateEnemy(_spawnTargets[i]));
+                _listEnemies.Add(CreateEnemy(_enemyPrefab, _spawnTargets[i]));
                 _listEnemies[i].GetComponent<EnemyStateController>().GetPlayerPosition(_playerPosition);
 
                 yield return new WaitForSeconds(1f);
             }
         }
 
-        private GameObject CreateEnemy(Transform target)
+        private GameObject CreateEnemy(GameObject prefab, Transform target)
         {
-            var enemy = Instantiate(_enemyPrefab, target.position, Quaternion.Euler(0f, Random.Range(0, 360), 0f));
+            var enemy = Instantiate(prefab, target.position, Quaternion.Euler(0f, Random.Range(0, 360), 0f));
 
             return enemy;
         }

@@ -9,13 +9,13 @@ namespace ET.Enemy.AI
     public class EnemyStateController : MonoBehaviour
     {
         #region Variables
-        private Animator _animator = null;
-        private NavMeshAgent _navMeshAgent = null;
-        private BoxCollider _boxCollider = null;
-        private EnemyAttacksController _enemyAttacks = null;
-        private AudioSource _audioSource = null;
+        private Animator _animator;
+        private NavMeshAgent _navMeshAgent;
+        private BoxCollider _boxCollider;
+        private EnemyAttacksController _enemyAttacks;
+        private AudioSource _audioSource;
 
-        private Transform _playerTransform = null;
+        private Transform _playerTransform;
 
         [Header("Parameters")]
         [SerializeField] private AI_ENEMY_STATE _currentState = AI_ENEMY_STATE.IDLE;
@@ -23,12 +23,11 @@ namespace ET.Enemy.AI
         [SerializeField] private float _chaseTimeOut = 0f;
         [SerializeField] private float _attackDelayTime = 0f;
         [SerializeField] private float _rotateSpeed = 100f;
+        [SerializeField] private float _allowableDistance = 10f;
 
         [SerializeField] private AudioClip _idleAudio;
         [SerializeField] private AudioClip _attackAudio;
         [SerializeField] private AudioClip _chaseAudio;
-
-        private float _allowableDistance = 10f;
 
         private bool _enemyIsDying = false;
         private bool _canSeePlayer = false;

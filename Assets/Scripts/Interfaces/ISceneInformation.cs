@@ -8,5 +8,6 @@ namespace ET.Interface
         SceneIndex LevelIndex { get; }
         Transform PlayerSpawnTarget { get; }
         Transform[] EnemySpawnTargets { get; }
+        Transform BossSpawnTarget { get; }
     }
 }
