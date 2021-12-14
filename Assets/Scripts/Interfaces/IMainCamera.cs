@@ -4,6 +4,6 @@ namespace ET.Interface
 {
     public interface IMainCamera
     {
-        void GetPlayerPosition(Transform target);
+        void GetPlayerPosition(IPlayer player, Transform target);
     }
 }

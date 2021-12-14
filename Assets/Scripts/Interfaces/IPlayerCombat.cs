@@ -9,6 +9,7 @@ namespace ET.Interface
     {
         event Action<float, string, int> onWeaponViewChange;
         event Action<int, int> onPlayerStatsViewChange;
+        event Action OnShake;
     }
 }
 

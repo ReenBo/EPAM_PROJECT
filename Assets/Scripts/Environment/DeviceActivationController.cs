@@ -24,8 +24,6 @@ namespace ET.Device
         private bool _enabledTerminal = false;
         private bool _keyCardIsAvailable = false;
 
-        //public event Action onOpeningDoorEvent;
-
         protected void Start()
         {
             _audioSource = GetComponent<AudioSource>();
@@ -39,6 +37,18 @@ namespace ET.Device
             {
                 _activatingButton.gameObject.SetActive(true);
                 _isActivated = true;
+
+                var keys = player.KeyCards;
+
+                foreach (var item in keys)
+                {
+                    var key = item.GetComponent<IKeyCard>();
+
+                    if(key.TypeKeyCard == TypeKeyCard.CYAN_KEY)
+                    {
+                        _keyCardIsAvailable = true;
+                    }
+                }
             }
         }
 
@@ -85,17 +95,7 @@ namespace ET.Device
 
             _door.Open();
 
-            //OpenDoor(_enabledTerminal);
-
             yield break;
         }
-
-        //private void OpenDoor(bool enabled)
-        //{
-        //    if (enabled)
-        //    {
-        //        onOpeningDoorEvent.Invoke();
-        //    }
-        //}
     }
 }

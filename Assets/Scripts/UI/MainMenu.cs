@@ -32,11 +32,6 @@ namespace ET.UI
         {
             _mainMenuTrans = transform;
 
-            //_playGame.onClick.AddListener(OnPlayGameClicked.Invoke);
-            //_load.onClick.AddListener(OnLoadGameClicked.Invoke);
-            //_settings.onClick.AddListener(OnSettingsClicked.Invoke);
-            //_exitGame.onClick.AddListener(OnExitGameClicked.Invoke);
-
             _playGame.onClick.AddListener(StartGame);
             _load.onClick.AddListener(LoadingGame);
             _settings.onClick.AddListener(SettingsGame);
@@ -60,7 +55,6 @@ namespace ET.UI
 
         private void SettingsGame()
         {
-            //
         }
 
         private void ExitGame()

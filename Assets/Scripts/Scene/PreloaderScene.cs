@@ -113,22 +113,25 @@ namespace ET
 
         private IEnumerator AsyncLoading(SceneIndex scene)
         {
-            var bootScreen = GetLoadingScreen();
-            bootScreen.Show();
+            //var bootScreen = GetLoadingScreen();
+            //bootScreen.Show();
 
             _loading = SceneManager.LoadSceneAsync(SceneIndex._GameSession.ToString());
+            yield return _loading;
 
-            _loading.allowSceneActivation = false;
+            #region Loading
+            //_loading.allowSceneActivation = false;
 
-            while (!_loading.isDone)
-            {
-                bootScreen.LoadingLine.fillAmount += Mathf.Clamp01(1e-3f);
+            //while (!_loading.isDone)
+            //{
+            //    bootScreen.LoadingLine.fillAmount += Mathf.Clamp01(1e-3f);
 
-                if (_loading.progress >= 0.9f)
-                {
-                    yield return _loading.allowSceneActivation = true;
-                }
-            }
+            //    if (_loading.progress >= 0.9f)
+            //    {
+            //        yield return _loading.allowSceneActivation = true;
+            //    }
+            //}
+            #endregion
 
             _loading = SceneManager.LoadSceneAsync(scene.ToString(), LoadSceneMode.Additive);
             yield return _loading;

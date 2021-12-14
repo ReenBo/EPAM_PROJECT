@@ -17,6 +17,7 @@ namespace ET.Interface
         void StartGame();
         void SaveGame();
         void LoadGame();
+        void NextLevel();
         void SettingsGame();
         void Restart();
         void ReturnMainMenu();

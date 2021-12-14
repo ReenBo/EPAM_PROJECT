@@ -19,11 +19,13 @@ namespace ET.Core.LevelInfo
 
         [Header("References to static level objects in the scene")]
         [SerializeField] private GameObject _levelStructure;
+        [SerializeField] private EndOfLevel _endLevel;
 
         public SceneIndex LevelIndex { get => _levelIndex; }
 
         public Transform PlayerSpawnTarget { get => _playerSpawnTarget; }
         public Transform[] EnemySpawnTargets { get => _enemySpawnTargets; }
         public Transform BossSpawnTarget { get => _bossSpawnTarget; }
+        public EndOfLevel EndLevel { get => _endLevel; }
     }
 }

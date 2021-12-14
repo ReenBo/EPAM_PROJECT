@@ -93,7 +93,6 @@ namespace ET.Player
                 Input.GetAxisRaw(Axis.VERTICAL_AXIS) != 0)
             {
                 _animator.SetTrigger(_run);
-                //_audioSource.PlayOneShot(_runAudio);
             }
             else
             {

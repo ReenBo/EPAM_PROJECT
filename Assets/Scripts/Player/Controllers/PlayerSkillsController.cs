@@ -24,8 +24,6 @@ namespace ET.Player.Skills
         private float _maxHealth = 100f;
         private bool _healthIsRestored = true;
 
-        private float _maxArmor = 50f;
-        private bool _armorIsRestored = true;
 
         private bool _resetIsAvailable = true;
 

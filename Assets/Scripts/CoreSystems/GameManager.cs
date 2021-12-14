@@ -168,18 +168,6 @@ namespace ET
             return _popups;
         }
 
-        //public ISaveSystem GetSaveSystem() // maybe static
-        //{
-        //    if (_saveSystem is null)
-        //    {
-        //        _resoursManager = GetResourseManager();
-
-        //        _saveSystem = new SaveSystem(_player, _levelSystem);
-        //    }
-
-        //    return _saveSystem;
-        //}
-
         public void StartSession()
         {
             Debug.Log("Susses StartSession()");
@@ -190,13 +178,15 @@ namespace ET
             _player.SetPosition(info.PlayerSpawnTarget);
             var playerPosition = _player.GetPosition();
 
-            _mainCamera.GetPlayerPosition(playerPosition);
+            _mainCamera.GetPlayerPosition(_player, playerPosition);
 
             _uIRoot.Init(_player, _levelSystem, scenesManager);
 
             _enemyManager.Init(playerPosition, info.EnemySpawnTargets, info.BossSpawnTarget);
 
             _saveSystem = new SaveSystem(_player, _levelSystem, scenesManager);
+
+            info.EndLevel.Init(scenesManager);
         }
     }
 }

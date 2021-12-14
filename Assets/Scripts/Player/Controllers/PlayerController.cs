@@ -33,6 +33,8 @@ namespace ET.Player
         public event Action<WindowType> onOpenWindow;
         public event Action<WindowType> onCloseWindow;
 
+        private List<GameObject> _keyCards = new List<GameObject>();
+
         private float _currentHealth = 0;
         private float _currentArmor = 0;
 
@@ -47,6 +49,7 @@ namespace ET.Player
         public PlayerCombatController PlayerCombat { get => _playerCombat; }
         public PlayerSkillsController PlayerSkills { get => _playerSkills; }
         public InputSystem InputSystem { get => _inputSystem; }
+        public List<GameObject> KeyCards { get => _keyCards; }
 
         protected void Awake()
         {
@@ -73,6 +76,16 @@ namespace ET.Player
         public void SetPosition(Transform target)
         {
             transform.position = target.position;
+        }
+
+        protected void OnTriggerEnter(Collider collider)
+        {
+            var key = collider.GetComponent<IKeyCard>();
+
+            if(key != null)
+            {
+                _keyCards.Add(collider.gameObject);
+            }
         }
 
         public void Damage(float amount)
@@ -142,8 +155,6 @@ namespace ET.Player
                 _animator.SetTrigger(AnimationsTags.DEATH_TRIGGER);
 
                 onOpenWindow.Invoke(WindowType.GAME_OVER);
-
-                //Destroy(gameObject, 3);
             }
         }
     }

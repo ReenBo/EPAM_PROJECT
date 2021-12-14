@@ -19,6 +19,7 @@ namespace ET.Player
 
         public event Action<float, string, int> onWeaponViewChange;
         public event Action<int, int> onPlayerStatsViewChange;
+        public event Action OnShake;
 
         private float _delayShoot = 0f;
         private float _timeDelay = 0f;
@@ -27,7 +28,7 @@ namespace ET.Player
         private const string _mouseScrollWheel = "Mouse ScrollWheel";
 
         private bool _isShooting = false;
-        //private bool _isRuning = false;
+        private bool _isRuning = false;
 
         private int[] _bulletArray = new int[4] { 0, 1, 2, 3 };
         private int _bulletIDNumber = 0;
@@ -82,6 +83,8 @@ namespace ET.Player
             {
                 if (Input.GetButton(_fire1))
                 {
+                    OnShake.Invoke();
+
                     _isShooting = true;
                     _animator.SetTrigger(_shooting);
 

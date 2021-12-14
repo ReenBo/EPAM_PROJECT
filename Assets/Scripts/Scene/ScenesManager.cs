@@ -38,7 +38,6 @@ namespace ET.Core
         public void StartGame()
         {
             OnGameStarts.Invoke(SceneIndex._Level_1);
-            //_preloader.UploadScene(SceneIndex._Level_1);
         }
 
         public void SaveGame()
@@ -59,18 +58,21 @@ namespace ET.Core
         public void Restart()
         {
             OnGameIsBeingRestarted.Invoke(_currentLevel);
-            //_preloader.UploadScene(_currentLevel);
         }
 
         public void ReturnMainMenu()
         {
             OnReturnsToMenu.Invoke();
-            //_preloader.LoadMainMenu();
         }
 
         public void ExitGame()
         {
             Application.Quit();
+        }
+
+        public void NextLevel()
+        {
+            OnGameStarts.Invoke(SceneIndex._Level_2);
         }
     }
 }

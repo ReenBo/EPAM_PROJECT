@@ -28,11 +28,6 @@ namespace ET.Environment.Door
         public void Open()
         {
             _audioSource.PlayOneShot(_audioClipOpenDoor);
-            //StartCoroutine(OpeningLeftDoor());
-
-
-            //_leftDoor.transform.position = _newPosleftDoor;
-            //_rightDoor.transform.position = _newPosRightDoor;
 
             _leftDoor.transform.localPosition = Vector3.Lerp(_leftDoor.transform.localPosition, _newPosleftDoor, 1);
             _rightDoor.transform.localPosition = Vector3.Lerp(_rightDoor.transform.localPosition, _newPosRightDoor, 1);

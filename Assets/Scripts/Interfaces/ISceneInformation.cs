@@ -9,5 +9,6 @@ namespace ET.Interface
         Transform PlayerSpawnTarget { get; }
         Transform[] EnemySpawnTargets { get; }
         Transform BossSpawnTarget { get; }
+        EndOfLevel EndLevel { get; }
     }
 }
