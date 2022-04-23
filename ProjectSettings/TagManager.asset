@@ -28,6 +28,7 @@ TagManager:
   - Ground
   - Player
   - PostProssesing
+  - Light_off
   - 
   - 
   - 
@@ -35,8 +36,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - shadow_chare
   - 
   - 
   - 
