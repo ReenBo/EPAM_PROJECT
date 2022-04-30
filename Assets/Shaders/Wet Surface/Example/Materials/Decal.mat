@@ -40,7 +40,7 @@ Material:
     - _NormalScale: 1
     - _WetMetallic: 1
     - _WetSmoothness: 1
-    - _Wetness: 0.957
+    - _Wetness: 0.936
     m_Colors:
     - <noninit>: {r: 0, g: 2.0182498, b: 1e-45, a: -8.6148096e-14}
     - _WetColor: {r: 0.38652548, g: 0.6786718, b: 0.8113208, a: 0.5254902}
