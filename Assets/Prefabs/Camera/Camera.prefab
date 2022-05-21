@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5163245423056865184}
   - component: {fileID: 5163245423056865190}
   - component: {fileID: 5163245423056865191}
-  - component: {fileID: 5163245423056865189}
   - component: {fileID: 2015521342}
   - component: {fileID: 2015521341}
+  - component: {fileID: 244307051}
   m_Layer: 8
   m_Name: Camera
   m_TagString: MainCamera
@@ -58,9 +58,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 7.6
   far clip plane: 1000
-  field of view: 60
+  field of view: 39
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -86,19 +86,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5163245423056865185}
   m_Enabled: 1
---- !u!114 &5163245423056865189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5163245423056865185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19c4e8743ff6adc409e5164cc56fb7d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 2
 --- !u!114 &2015521342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,7 +113,7 @@ MonoBehaviour:
   subpixelMorphologicalAntialiasing:
     quality: 2
   fastApproximateAntialiasing:
-    fastMode: 0
+    fastMode: 1
     keepAlpha: 0
   fog:
     enabled: 1
@@ -176,3 +163,22 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   priority: 0
+--- !u!114 &244307051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5163245423056865185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfc0c6028fae37144a6efbd2de708409, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Camera: {fileID: 5163245423056865190}
+  m_Material: {fileID: 0}
+  m_Shader: {fileID: 4800000, guid: a884b698409ebfd41af0f6df151ca78c, type: 3}
+  sharpenAmount: 2
+  maximumSharpness: 0.25
+  sharpenRadius: 1
+  sharpenType: 0
