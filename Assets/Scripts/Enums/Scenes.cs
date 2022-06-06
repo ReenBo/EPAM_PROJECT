@@ -14,6 +14,7 @@ namespace ET.Enums.Scenes
         _PreLevel,
         _MainMenu,
         _GameSession,
+        _Level_Train,
         _Level_1,
         _Level_2,
         _Level_3,
